@@ -5,8 +5,8 @@
 * Daily-and-Sports-Activities-dataset
 * PAMAP2 dataset
 * UCI-HAR dataset
-* UniMiB-SHAR dataset
 * USC-HAD dataset
+* UniMiB-SHAR dataset
 * WISDM dataset
 
 ### 代码运行样例
