@@ -8,6 +8,7 @@
 * USC-HAD dataset
 * UniMiB-SHAR dataset
 * WISDM dataset
+* OPPORTUNITY dataset (unfinished)
 
 ### 代码运行样例
 ```
