@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import TensorDataset, DataLoader
 import sys
-sys.path.append(r'..\HAR-Dataset-Prerocess')
+sys.path.append(r'../HAR-Dataset-Prerocess')
 from model import *
 from Daily_and_Sports_Activities_dataset.dataproc import DASA
 from UniMib_SHAR.dataproc import UNIMIB
