@@ -2,6 +2,12 @@ import scipy.io as scio
 import os
 import numpy as np
 
+'''
+WINDOW_SIZE=512 # int
+OVERLAP_RATE=0.5 # float in [0，1）
+SPLIT_RATE=(8,2) # tuple or list  
+'''
+
 def USC(WINDOW_SIZE=512, OVERLAP_RATE=0.5, SPLIT_RATE=(8,2), dataset_dir='USC-HAD'):
     '''数据处理'''
     def slide_window(array, w_s, stride):

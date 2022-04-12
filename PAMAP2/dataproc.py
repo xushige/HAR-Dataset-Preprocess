@@ -8,12 +8,12 @@ http://archive.ics.uci.edu/ml/machine-learning-databases/00231/
 将PAMAP2_Dataset.zip中的Protocol文件夹放到该目录下即可运行
 
 WINDOW_SIZE=171 # int
-OVERLAP_RATE=0.5 # float in [0，1）
+OVERLAP_RATE=0 # float in [0，1）
 SPLIT_RATE=(7,3) # tuple or list  
 
 '''
 
-def PAMAP2(WINDOW_SIZE=171, OVERLAP_RATE=0, SPLIT_RATE=(7,3), dataset_dir='Protocol'):
+def PAMAP(WINDOW_SIZE=171, OVERLAP_RATE=0, SPLIT_RATE=(7,3), dataset_dir='Protocol'):
     xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data
     category_dict = dict(zip([*range(12)], [1, 2, 3, 4, 5, 6, 7, 12, 13, 16, 17, 24])) #12分类所对应的实际label，对应readme.pdf
 

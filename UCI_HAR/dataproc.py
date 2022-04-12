@@ -1,6 +1,12 @@
 import numpy as np
 import pandas as pd
 
+'''
+WINDOW_SIZE=128 # int
+OVERLAP_RATE=0.5 # float in [0，1）
+SPLIT_RATE=-- # tuple or list  
+'''
+
 def UCI(dataset_dir='UCI_HAR_Dataset'):
     dataset = dataset_dir
 

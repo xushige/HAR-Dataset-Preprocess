@@ -1,6 +1,7 @@
 import os
 import numpy as np
 
+
 def DASA(SPLIT_RATE=(7,3), dataset_dir='data'):
     def txt_to_numpy(filename):
         with open(filename, 'r') as f:
@@ -31,7 +32,7 @@ def DASA(SPLIT_RATE=(7,3), dataset_dir='data'):
         return X
 
 
-    def split_data(X, ratio=(8, 2)):
+    def split_data(X, ratio):
         '''数据集切分'''
         train_num = int(480*ratio[0]/sum(ratio))
         X_train, X_test, Y_train, Y_test = [], [], [], []

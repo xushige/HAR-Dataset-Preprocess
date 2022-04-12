@@ -1,6 +1,11 @@
 import numpy as np 
+'''
+WINDOW_SIZE=200 # int
+OVERLAP_RATE=0.75 # float in [0，1）
+SPLIT_RATE=(7,3) # tuple or list  
 
-def WISDM(WINDOW_SIZE=200, OVERLAP_RATE=0.5, SPLIT_RATE=(7,3), dataset_dir='WISDM_ar_v1.1'):
+'''
+def WISDM(WINDOW_SIZE=200, OVERLAP_RATE=0.75, SPLIT_RATE=(7,3), dataset_dir='WISDM_ar_v1.1'):
     xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data
 
     def slide_window(array, windowsize, overlaprate, label, split_rate=(7, 3)):

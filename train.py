@@ -7,7 +7,7 @@ sys.path.append(r'..\HAR-Dataset-Prerocess')
 from model import *
 from Daily_and_Sports_Activities_dataset.dataproc import DASA
 from UniMib_SHAR.dataproc import UNIMIB
-from PAMAP2.dataproc import PAMAP2
+from PAMAP2.dataproc import PAMAP
 from UCI_HAR.dataproc import UCI
 from USC_HAD.dataproc import USC
 from WISDM.dataproc import WISDM
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     dataset_dict = {
         'uci': UCI,
         'unimib': UNIMIB,
-        'pamap': PAMAP2,
+        'pamap': PAMAP,
         'usc': USC,
         'dasa': DASA,
         'wisdm': WISDM

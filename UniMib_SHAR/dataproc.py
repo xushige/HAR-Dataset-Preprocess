@@ -2,6 +2,11 @@ import scipy.io as scio
 import numpy as np
 import os
 
+'''
+WINDOW_SIZE=151 # int
+OVERLAP_RATE=0 # float in [0，1）
+SPLIT_RATE=(7,3) # tuple or list  
+'''
 
 def UNIMIB(SPLIT_RATE=(7,3), dataset_dir='data'):
     '''数据读取'''
