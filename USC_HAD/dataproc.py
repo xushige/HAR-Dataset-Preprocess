@@ -80,3 +80,6 @@ def USC(WINDOW_SIZE=512, OVERLAP_RATE=0.5, SPLIT_RATE=(8,2), dataset_dir='USC-HA
             stride = int(WINDOW_SIZE*(1-OVERLAP_RATE))
             ), 
         ratio = SPLIT_RATE)
+
+if __name__ == '__main__':
+    USC()

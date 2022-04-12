@@ -44,3 +44,5 @@ def UNIMIB(SPLIT_RATE=(7,3), dataset_dir='data'):
     return train_data, test_data, train_label, test_label
 
 
+if __name__ == '__main__':
+    UNIMIB()

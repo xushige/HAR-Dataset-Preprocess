@@ -51,3 +51,6 @@ def UCI(dataset_dir='UCI_HAR_Dataset'):
     print('xtrain shape: %s\nxtest shape: %s\nytrain shape: %s\nytest shape: %s'%(X_train.shape, X_test.shape, Y_train.shape, Y_test.shape))
 
     return X_train, X_test, Y_train, Y_test
+
+if __name__ == '__main__':
+    UCI()

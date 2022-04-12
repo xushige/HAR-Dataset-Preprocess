@@ -68,3 +68,7 @@ def PAMAP(WINDOW_SIZE=171, OVERLAP_RATE=0, SPLIT_RATE=(7,3), dataset_dir='Protoc
     print('\n---------------------------------------------------------------------------------------------------------------------\n')
     print('xtrain shape: %s\nxtest shape: %s\nytrain shape: %s\nytest shape: %s'%(xtrain.shape, xtest.shape, ytrain.shape, ytest.shape))
     return xtrain, xtest, ytrain, ytest
+
+
+if __name__ == '__main__':
+    PAMAP()

@@ -1,6 +1,11 @@
 import os
 import numpy as np
 
+'''
+WINDOW_SIZE=125 # int
+OVERLAP_RATE=-- # float in [0，1）
+SPLIT_RATE=(7,3) # tuple or list
+'''
 
 def DASA(SPLIT_RATE=(7,3), dataset_dir='data'):
     def txt_to_numpy(filename):
@@ -49,3 +54,5 @@ def DASA(SPLIT_RATE=(7,3), dataset_dir='data'):
     print('xtrain shape: %s\nxtest shape: %s\nytrain shape: %s\nytest shape: %s'%(xtrain.shape, xtest.shape, ytrain.shape, ytest.shape))
     return xtrain, xtest, ytrain, ytest
 
+if __name__ == '__main__':
+    DASA()
