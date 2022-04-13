@@ -1,0 +1,100 @@
+Unique index   -   Track name   -   Label name
+
+1   -   Locomotion   -   Stand
+2   -   Locomotion   -   Walk
+4   -   Locomotion   -   Sit
+5   -   Locomotion   -   Lie
+101   -   HL_Activity   -   Relaxing
+102   -   HL_Activity   -   Coffee time
+103   -   HL_Activity   -   Early morning
+104   -   HL_Activity   -   Cleanup
+105   -   HL_Activity   -   Sandwich time
+201   -   LL_Left_Arm   -   unlock
+202   -   LL_Left_Arm   -   stir
+203   -   LL_Left_Arm   -   lock
+204   -   LL_Left_Arm   -   close
+205   -   LL_Left_Arm   -   reach
+206   -   LL_Left_Arm   -   open
+207   -   LL_Left_Arm   -   sip
+208   -   LL_Left_Arm   -   clean
+209   -   LL_Left_Arm   -   bite
+210   -   LL_Left_Arm   -   cut
+211   -   LL_Left_Arm   -   spread
+212   -   LL_Left_Arm   -   release
+213   -   LL_Left_Arm   -   move
+301   -   LL_Left_Arm_Object   -   Bottle
+302   -   LL_Left_Arm_Object   -   Salami
+303   -   LL_Left_Arm_Object   -   Bread
+304   -   LL_Left_Arm_Object   -   Sugar
+305   -   LL_Left_Arm_Object   -   Dishwasher
+306   -   LL_Left_Arm_Object   -   Switch
+307   -   LL_Left_Arm_Object   -   Milk
+308   -   LL_Left_Arm_Object   -   Drawer3 (lower)
+309   -   LL_Left_Arm_Object   -   Spoon
+310   -   LL_Left_Arm_Object   -   Knife cheese
+311   -   LL_Left_Arm_Object   -   Drawer2 (middle)
+312   -   LL_Left_Arm_Object   -   Table
+313   -   LL_Left_Arm_Object   -   Glass
+314   -   LL_Left_Arm_Object   -   Cheese
+315   -   LL_Left_Arm_Object   -   Chair
+316   -   LL_Left_Arm_Object   -   Door1
+317   -   LL_Left_Arm_Object   -   Door2
+318   -   LL_Left_Arm_Object   -   Plate
+319   -   LL_Left_Arm_Object   -   Drawer1 (top)
+320   -   LL_Left_Arm_Object   -   Fridge
+321   -   LL_Left_Arm_Object   -   Cup
+322   -   LL_Left_Arm_Object   -   Knife salami
+323   -   LL_Left_Arm_Object   -   Lazychair
+401   -   LL_Right_Arm   -   unlock
+402   -   LL_Right_Arm   -   stir
+403   -   LL_Right_Arm   -   lock
+404   -   LL_Right_Arm   -   close
+405   -   LL_Right_Arm   -   reach
+406   -   LL_Right_Arm   -   open
+407   -   LL_Right_Arm   -   sip
+408   -   LL_Right_Arm   -   clean
+409   -   LL_Right_Arm   -   bite
+410   -   LL_Right_Arm   -   cut
+411   -   LL_Right_Arm   -   spread
+412   -   LL_Right_Arm   -   release
+413   -   LL_Right_Arm   -   move
+501   -   LL_Right_Arm_Object   -   Bottle
+502   -   LL_Right_Arm_Object   -   Salami
+503   -   LL_Right_Arm_Object   -   Bread
+504   -   LL_Right_Arm_Object   -   Sugar
+505   -   LL_Right_Arm_Object   -   Dishwasher
+506   -   LL_Right_Arm_Object   -   Switch
+507   -   LL_Right_Arm_Object   -   Milk
+508   -   LL_Right_Arm_Object   -   Drawer3 (lower)
+509   -   LL_Right_Arm_Object   -   Spoon
+510   -   LL_Right_Arm_Object   -   Knife cheese
+511   -   LL_Right_Arm_Object   -   Drawer2 (middle)
+512   -   LL_Right_Arm_Object   -   Table
+513   -   LL_Right_Arm_Object   -   Glass
+514   -   LL_Right_Arm_Object   -   Cheese
+515   -   LL_Right_Arm_Object   -   Chair
+516   -   LL_Right_Arm_Object   -   Door1
+517   -   LL_Right_Arm_Object   -   Door2
+518   -   LL_Right_Arm_Object   -   Plate
+519   -   LL_Right_Arm_Object   -   Drawer1 (top)
+520   -   LL_Right_Arm_Object   -   Fridge
+521   -   LL_Right_Arm_Object   -   Cup
+522   -   LL_Right_Arm_Object   -   Knife salami
+523   -   LL_Right_Arm_Object   -   Lazychair
+406516   -   ML_Both_Arms   -   Open Door 1
+406517   -   ML_Both_Arms   -   Open Door 2
+404516   -   ML_Both_Arms   -   Close Door 1
+404517   -   ML_Both_Arms   -   Close Door 2
+406520   -   ML_Both_Arms   -   Open Fridge
+404520   -   ML_Both_Arms   -   Close Fridge
+406505   -   ML_Both_Arms   -   Open Dishwasher
+404505   -   ML_Both_Arms   -   Close Dishwasher
+406519   -   ML_Both_Arms   -   Open Drawer 1
+404519   -   ML_Both_Arms   -   Close Drawer 1
+406511   -   ML_Both_Arms   -   Open Drawer 2
+404511   -   ML_Both_Arms   -   Close Drawer 2
+406508   -   ML_Both_Arms   -   Open Drawer 3
+404508   -   ML_Both_Arms   -   Close Drawer 3
+408512   -   ML_Both_Arms   -   Clean Table
+407521   -   ML_Both_Arms   -   Drink from Cup
+405506   -   ML_Both_Arms   -   Toggle Switch

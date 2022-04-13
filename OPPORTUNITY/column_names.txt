@@ -1,0 +1,255 @@
+Data columns:
+
+Column: 1 MILLISEC
+Column: 2 Accelerometer RKN^ accX; value = round(original_value), unit = milli g
+Column: 3 Accelerometer RKN^ accY; value = round(original_value), unit = milli g
+Column: 4 Accelerometer RKN^ accZ; value = round(original_value), unit = milli g
+Column: 5 Accelerometer HIP accX; value = round(original_value), unit = milli g
+Column: 6 Accelerometer HIP accY; value = round(original_value), unit = milli g
+Column: 7 Accelerometer HIP accZ; value = round(original_value), unit = milli g
+Column: 8 Accelerometer LUA^ accX; value = round(original_value), unit = milli g
+Column: 9 Accelerometer LUA^ accY; value = round(original_value), unit = milli g
+Column: 10 Accelerometer LUA^ accZ; value = round(original_value), unit = milli g
+Column: 11 Accelerometer RUA_ accX; value = round(original_value), unit = milli g
+Column: 12 Accelerometer RUA_ accY; value = round(original_value), unit = milli g
+Column: 13 Accelerometer RUA_ accZ; value = round(original_value), unit = milli g
+Column: 14 Accelerometer LH accX; value = round(original_value), unit = milli g
+Column: 15 Accelerometer LH accY; value = round(original_value), unit = milli g
+Column: 16 Accelerometer LH accZ; value = round(original_value), unit = milli g
+Column: 17 Accelerometer BACK accX; value = round(original_value), unit = milli g
+Column: 18 Accelerometer BACK accY; value = round(original_value), unit = milli g
+Column: 19 Accelerometer BACK accZ; value = round(original_value), unit = milli g
+Column: 20 Accelerometer RKN_ accX; value = round(original_value), unit = milli g
+Column: 21 Accelerometer RKN_ accY; value = round(original_value), unit = milli g
+Column: 22 Accelerometer RKN_ accZ; value = round(original_value), unit = milli g
+Column: 23 Accelerometer RWR accX; value = round(original_value), unit = milli g
+Column: 24 Accelerometer RWR accY; value = round(original_value), unit = milli g
+Column: 25 Accelerometer RWR accZ; value = round(original_value), unit = milli g
+Column: 26 Accelerometer RUA^ accX; value = round(original_value), unit = milli g
+Column: 27 Accelerometer RUA^ accY; value = round(original_value), unit = milli g
+Column: 28 Accelerometer RUA^ accZ; value = round(original_value), unit = milli g
+Column: 29 Accelerometer LUA_ accX; value = round(original_value), unit = milli g
+Column: 30 Accelerometer LUA_ accY; value = round(original_value), unit = milli g
+Column: 31 Accelerometer LUA_ accZ; value = round(original_value), unit = milli g
+Column: 32 Accelerometer LWR accX; value = round(original_value), unit = milli g
+Column: 33 Accelerometer LWR accY; value = round(original_value), unit = milli g
+Column: 34 Accelerometer LWR accZ; value = round(original_value), unit = milli g
+Column: 35 Accelerometer RH accX; value = round(original_value), unit = milli g
+Column: 36 Accelerometer RH accY; value = round(original_value), unit = milli g
+Column: 37 Accelerometer RH accZ; value = round(original_value), unit = milli g
+Column: 38 InertialMeasurementUnit BACK accX; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 39 InertialMeasurementUnit BACK accY; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 40 InertialMeasurementUnit BACK accZ; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 41 InertialMeasurementUnit BACK gyroX; value = round(original_value * 1000), unit = unknown
+Column: 42 InertialMeasurementUnit BACK gyroY; value = round(original_value * 1000), unit = unknown
+Column: 43 InertialMeasurementUnit BACK gyroZ; value = round(original_value * 1000), unit = unknown
+Column: 44 InertialMeasurementUnit BACK magneticX; value = round(original_value * 1000), unit = unknown
+Column: 45 InertialMeasurementUnit BACK magneticY; value = round(original_value * 1000), unit = unknown
+Column: 46 InertialMeasurementUnit BACK magneticZ; value = round(original_value * 1000), unit = unknown
+Column: 47 InertialMeasurementUnit BACK Quaternion1; value = round(original_value * 1000), unit = none
+Column: 48 InertialMeasurementUnit BACK Quaternion2; value = round(original_value * 1000), unit = none
+Column: 49 InertialMeasurementUnit BACK Quaternion3; value = round(original_value * 1000), unit = none
+Column: 50 InertialMeasurementUnit BACK Quaternion4; value = round(original_value * 1000), unit = none
+Column: 51 InertialMeasurementUnit RUA accX; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 52 InertialMeasurementUnit RUA accY; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 53 InertialMeasurementUnit RUA accZ; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 54 InertialMeasurementUnit RUA gyroX; value = round(original_value * 1000), unit = unknown
+Column: 55 InertialMeasurementUnit RUA gyroY; value = round(original_value * 1000), unit = unknown
+Column: 56 InertialMeasurementUnit RUA gyroZ; value = round(original_value * 1000), unit = unknown
+Column: 57 InertialMeasurementUnit RUA magneticX; value = round(original_value * 1000), unit = unknown
+Column: 58 InertialMeasurementUnit RUA magneticY; value = round(original_value * 1000), unit = unknown
+Column: 59 InertialMeasurementUnit RUA magneticZ; value = round(original_value * 1000), unit = unknown
+Column: 60 InertialMeasurementUnit RUA Quaternion1; value = round(original_value * 1000), unit = none
+Column: 61 InertialMeasurementUnit RUA Quaternion2; value = round(original_value * 1000), unit = none
+Column: 62 InertialMeasurementUnit RUA Quaternion3; value = round(original_value * 1000), unit = none
+Column: 63 InertialMeasurementUnit RUA Quaternion4; value = round(original_value * 1000), unit = none
+Column: 64 InertialMeasurementUnit RLA accX; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 65 InertialMeasurementUnit RLA accY; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 66 InertialMeasurementUnit RLA accZ; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 67 InertialMeasurementUnit RLA gyroX; value = round(original_value * 1000), unit = unknown
+Column: 68 InertialMeasurementUnit RLA gyroY; value = round(original_value * 1000), unit = unknown
+Column: 69 InertialMeasurementUnit RLA gyroZ; value = round(original_value * 1000), unit = unknown
+Column: 70 InertialMeasurementUnit RLA magneticX; value = round(original_value * 1000), unit = unknown
+Column: 71 InertialMeasurementUnit RLA magneticY; value = round(original_value * 1000), unit = unknown
+Column: 72 InertialMeasurementUnit RLA magneticZ; value = round(original_value * 1000), unit = unknown
+Column: 73 InertialMeasurementUnit RLA Quaternion1; value = round(original_value * 1000), unit = none
+Column: 74 InertialMeasurementUnit RLA Quaternion2; value = round(original_value * 1000), unit = none
+Column: 75 InertialMeasurementUnit RLA Quaternion3; value = round(original_value * 1000), unit = none
+Column: 76 InertialMeasurementUnit RLA Quaternion4; value = round(original_value * 1000), unit = none
+Column: 77 InertialMeasurementUnit LUA accX; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 78 InertialMeasurementUnit LUA accY; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 79 InertialMeasurementUnit LUA accZ; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 80 InertialMeasurementUnit LUA gyroX; value = round(original_value * 1000), unit = unknown
+Column: 81 InertialMeasurementUnit LUA gyroY; value = round(original_value * 1000), unit = unknown
+Column: 82 InertialMeasurementUnit LUA gyroZ; value = round(original_value * 1000), unit = unknown
+Column: 83 InertialMeasurementUnit LUA magneticX; value = round(original_value * 1000), unit = unknown
+Column: 84 InertialMeasurementUnit LUA magneticY; value = round(original_value * 1000), unit = unknown
+Column: 85 InertialMeasurementUnit LUA magneticZ; value = round(original_value * 1000), unit = unknown
+Column: 86 InertialMeasurementUnit LUA Quaternion1; value = round(original_value * 1000), unit = none
+Column: 87 InertialMeasurementUnit LUA Quaternion2; value = round(original_value * 1000), unit = none
+Column: 88 InertialMeasurementUnit LUA Quaternion3; value = round(original_value * 1000), unit = none
+Column: 89 InertialMeasurementUnit LUA Quaternion4; value = round(original_value * 1000), unit = none
+Column: 90 InertialMeasurementUnit LLA accX; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 91 InertialMeasurementUnit LLA accY; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 92 InertialMeasurementUnit LLA accZ; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 93 InertialMeasurementUnit LLA gyroX; value = round(original_value * 1000), unit = unknown
+Column: 94 InertialMeasurementUnit LLA gyroY; value = round(original_value * 1000), unit = unknown
+Column: 95 InertialMeasurementUnit LLA gyroZ; value = round(original_value * 1000), unit = unknown
+Column: 96 InertialMeasurementUnit LLA magneticX; value = round(original_value * 1000), unit = unknown
+Column: 97 InertialMeasurementUnit LLA magneticY; value = round(original_value * 1000), unit = unknown
+Column: 98 InertialMeasurementUnit LLA magneticZ; value = round(original_value * 1000), unit = unknown
+Column: 99 InertialMeasurementUnit LLA Quaternion1; value = round(original_value * 1000), unit = none
+Column: 100 InertialMeasurementUnit LLA Quaternion2; value = round(original_value * 1000), unit = none
+Column: 101 InertialMeasurementUnit LLA Quaternion3; value = round(original_value * 1000), unit = none
+Column: 102 InertialMeasurementUnit LLA Quaternion4; value = round(original_value * 1000), unit = none
+Column: 103 InertialMeasurementUnit L-SHOE EuX; value = round(original_value), unit = degrees
+Column: 104 InertialMeasurementUnit L-SHOE EuY; value = round(original_value), unit = degrees
+Column: 105 InertialMeasurementUnit L-SHOE EuZ; value = round(original_value), unit = degrees
+Column: 106 InertialMeasurementUnit L-SHOE Nav_Ax; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 107 InertialMeasurementUnit L-SHOE Nav_Ay; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 108 InertialMeasurementUnit L-SHOE Nav_Az; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 109 InertialMeasurementUnit L-SHOE Body_Ax; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 110 InertialMeasurementUnit L-SHOE Body_Ay; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 111 InertialMeasurementUnit L-SHOE Body_Az; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 112 InertialMeasurementUnit L-SHOE AngVelBodyFrameX; value = round(original_value * 1000), unit = mm/s
+Column: 113 InertialMeasurementUnit L-SHOE AngVelBodyFrameY; value = round(original_value * 1000), unit = mm/s
+Column: 114 InertialMeasurementUnit L-SHOE AngVelBodyFrameZ; value = round(original_value * 1000), unit = mm/s
+Column: 115 InertialMeasurementUnit L-SHOE AngVelNavFrameX; value = round(original_value * 1000), unit = mm/s
+Column: 116 InertialMeasurementUnit L-SHOE AngVelNavFrameY; value = round(original_value * 1000), unit = mm/s
+Column: 117 InertialMeasurementUnit L-SHOE AngVelNavFrameZ; value = round(original_value * 1000), unit = mm/s
+Column: 118 InertialMeasurementUnit L-SHOE Compass; value = round(original_value), unit = degrees
+Column: 119 InertialMeasurementUnit R-SHOE EuX; value = round(original_value), unit = degrees
+Column: 120 InertialMeasurementUnit R-SHOE EuY; value = round(original_value), unit = degrees
+Column: 121 InertialMeasurementUnit R-SHOE EuZ; value = round(original_value), unit = degrees
+Column: 122 InertialMeasurementUnit R-SHOE Nav_Ax; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 123 InertialMeasurementUnit R-SHOE Nav_Ay; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 124 InertialMeasurementUnit R-SHOE Nav_Az; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 125 InertialMeasurementUnit R-SHOE Body_Ax; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 126 InertialMeasurementUnit R-SHOE Body_Ay; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 127 InertialMeasurementUnit R-SHOE Body_Az; value = round(original_value / 9.8 * 1000), unit = milli g
+Column: 128 InertialMeasurementUnit R-SHOE AngVelBodyFrameX; value = round(original_value * 1000), unit = mm/s
+Column: 129 InertialMeasurementUnit R-SHOE AngVelBodyFrameY; value = round(original_value * 1000), unit = mm/s
+Column: 130 InertialMeasurementUnit R-SHOE AngVelBodyFrameZ; value = round(original_value * 1000), unit = mm/s
+Column: 131 InertialMeasurementUnit R-SHOE AngVelNavFrameX; value = round(original_value * 1000), unit = mm/s
+Column: 132 InertialMeasurementUnit R-SHOE AngVelNavFrameY; value = round(original_value * 1000), unit = mm/s
+Column: 133 InertialMeasurementUnit R-SHOE AngVelNavFrameZ; value = round(original_value * 1000), unit = mm/s
+Column: 134 InertialMeasurementUnit R-SHOE Compass; value = round(original_value), unit = degrees
+Column: 135 Accelerometer CUP accX; value = round(original_value), unit = milli g
+Column: 136 Accelerometer CUP accX; value = round(original_value), unit = milli g
+Column: 137 Accelerometer CUP accX; value = round(original_value), unit = milli g
+Column: 138 Accelerometer CUP gyroX; value = round(original_value), unit = unknown
+Column: 139 Accelerometer CUP gyroY; value = round(original_value), unit = unknown
+Column: 140 Accelerometer SALAMI accX; value = round(original_value), unit = milli g
+Column: 141 Accelerometer SALAMI accX; value = round(original_value), unit = milli g
+Column: 142 Accelerometer SALAMI accX; value = round(original_value), unit = milli g
+Column: 143 Accelerometer SALAMI gyroX; value = round(original_value), unit = unknown
+Column: 144 Accelerometer SALAMI gyroY; value = round(original_value), unit = unknown
+Column: 145 Accelerometer WATER accX; value = round(original_value), unit = milli g
+Column: 146 Accelerometer WATER accX; value = round(original_value), unit = milli g
+Column: 147 Accelerometer WATER accX; value = round(original_value), unit = milli g
+Column: 148 Accelerometer WATER gyroX; value = round(original_value), unit = unknown
+Column: 149 Accelerometer WATER gyroY; value = round(original_value), unit = unknown
+Column: 150 Accelerometer CHEESE accX; value = round(original_value), unit = milli g
+Column: 151 Accelerometer CHEESE accX; value = round(original_value), unit = milli g
+Column: 152 Accelerometer CHEESE accX; value = round(original_value), unit = milli g
+Column: 153 Accelerometer CHEESE gyroX; value = round(original_value), unit = unknown
+Column: 154 Accelerometer CHEESE gyroY; value = round(original_value), unit = unknown
+Column: 155 Accelerometer BREAD accX; value = round(original_value), unit = milli g
+Column: 156 Accelerometer BREAD accX; value = round(original_value), unit = milli g
+Column: 157 Accelerometer BREAD accX; value = round(original_value), unit = milli g
+Column: 158 Accelerometer BREAD gyroX; value = round(original_value), unit = unknown
+Column: 159 Accelerometer BREAD gyroY; value = round(original_value), unit = unknown
+Column: 160 Accelerometer KNIFE1 accX; value = round(original_value), unit = milli g
+Column: 161 Accelerometer KNIFE1 accX; value = round(original_value), unit = milli g
+Column: 162 Accelerometer KNIFE1 accX; value = round(original_value), unit = milli g
+Column: 163 Accelerometer KNIFE1 gyroX; value = round(original_value), unit = unknown
+Column: 164 Accelerometer KNIFE1 gyroY; value = round(original_value), unit = unknown
+Column: 165 Accelerometer MILK accX; value = round(original_value), unit = milli g
+Column: 166 Accelerometer MILK accX; value = round(original_value), unit = milli g
+Column: 167 Accelerometer MILK accX; value = round(original_value), unit = milli g
+Column: 168 Accelerometer MILK gyroX; value = round(original_value), unit = unknown
+Column: 169 Accelerometer MILK gyroY; value = round(original_value), unit = unknown
+Column: 170 Accelerometer SPOON accX; value = round(original_value), unit = milli g
+Column: 171 Accelerometer SPOON accX; value = round(original_value), unit = milli g
+Column: 172 Accelerometer SPOON accX; value = round(original_value), unit = milli g
+Column: 173 Accelerometer SPOON gyroX; value = round(original_value), unit = unknown
+Column: 174 Accelerometer SPOON gyroY; value = round(original_value), unit = unknown
+Column: 175 Accelerometer SUGAR accX; value = round(original_value), unit = milli g
+Column: 176 Accelerometer SUGAR accX; value = round(original_value), unit = milli g
+Column: 177 Accelerometer SUGAR accX; value = round(original_value), unit = milli g
+Column: 178 Accelerometer SUGAR gyroX; value = round(original_value), unit = unknown
+Column: 179 Accelerometer SUGAR gyroY; value = round(original_value), unit = unknown
+Column: 180 Accelerometer KNIFE2 accX; value = round(original_value), unit = milli g
+Column: 181 Accelerometer KNIFE2 accX; value = round(original_value), unit = milli g
+Column: 182 Accelerometer KNIFE2 accX; value = round(original_value), unit = milli g
+Column: 183 Accelerometer KNIFE2 gyroX; value = round(original_value), unit = unknown
+Column: 184 Accelerometer KNIFE2 gyroY; value = round(original_value), unit = unknown
+Column: 185 Accelerometer PLATE accX; value = round(original_value), unit = milli g
+Column: 186 Accelerometer PLATE accX; value = round(original_value), unit = milli g
+Column: 187 Accelerometer PLATE accX; value = round(original_value), unit = milli g
+Column: 188 Accelerometer PLATE gyroX; value = round(original_value), unit = unknown
+Column: 189 Accelerometer PLATE gyroY; value = round(original_value), unit = unknown
+Column: 190 Accelerometer GLASS accX; value = round(original_value), unit = milli g
+Column: 191 Accelerometer GLASS accX; value = round(original_value), unit = milli g
+Column: 192 Accelerometer GLASS accX; value = round(original_value), unit = milli g
+Column: 193 Accelerometer GLASS gyroX; value = round(original_value), unit = unknown
+Column: 194 Accelerometer GLASS gyroY; value = round(original_value), unit = unknown
+Column: 195 REED SWITCH DISHWASHER S1; value = original_value, unit = logical (0/1)
+Column: 196 REED SWITCH FRIDGE S3; value = original_value, unit = logical (0/1)
+Column: 197 REED SWITCH FRIDGE S2; value = original_value, unit = logical (0/1)
+Column: 198 REED SWITCH FRIDGE S1; value = original_value, unit = logical (0/1)
+Column: 199 REED SWITCH MIDDLEDRAWER S1; value = original_value, unit = logical (0/1)
+Column: 200 REED SWITCH MIDDLEDRAWER S2; value = original_value, unit = logical (0/1)
+Column: 201 REED SWITCH MIDDLEDRAWER S3; value = original_value, unit = logical (0/1)
+Column: 202 REED SWITCH LOWERDRAWER S3; value = original_value, unit = logical (0/1)
+Column: 203 REED SWITCH LOWERDRAWER S2; value = original_value, unit = logical (0/1)
+Column: 204 REED SWITCH UPPERDRAWER; value = original_value, unit = logical (0/1)
+Column: 205 REED SWITCH DISHWASHER S3; value = original_value, unit = logical (0/1)
+Column: 206 REED SWITCH LOWERDRAWER S1; value = original_value, unit = logical (0/1)
+Column: 207 REED SWITCH DISHWASHER S2; value = original_value, unit = logical (0/1)
+Column: 208 Accelerometer DOOR1 accX; value = round(original_value), unit = milli g
+Column: 209 Accelerometer DOOR1 accY; value = round(original_value), unit = milli g
+Column: 210 Accelerometer DOOR1 accZ; value = round(original_value), unit = milli g
+Column: 211 Accelerometer LAZYCHAIR accX; value = round(original_value), unit = milli g
+Column: 212 Accelerometer LAZYCHAIR accY; value = round(original_value), unit = milli g
+Column: 213 Accelerometer LAZYCHAIR accZ; value = round(original_value), unit = milli g
+Column: 214 Accelerometer DOOR2 accX; value = round(original_value), unit = milli g
+Column: 215 Accelerometer DOOR2 accY; value = round(original_value), unit = milli g
+Column: 216 Accelerometer DOOR2 accZ; value = round(original_value), unit = milli g
+Column: 217 Accelerometer DISHWASHER accX; value = round(original_value), unit = milli g
+Column: 218 Accelerometer DISHWASHER accY; value = round(original_value), unit = milli g
+Column: 219 Accelerometer DISHWASHER accZ; value = round(original_value), unit = milli g
+Column: 220 Accelerometer UPPERDRAWER accX; value = round(original_value), unit = milli g
+Column: 221 Accelerometer UPPERDRAWER accY; value = round(original_value), unit = milli g
+Column: 222 Accelerometer UPPERDRAWER accZ; value = round(original_value), unit = milli g
+Column: 223 Accelerometer LOWERDRAWER accX; value = round(original_value), unit = milli g
+Column: 224 Accelerometer LOWERDRAWER accY; value = round(original_value), unit = milli g
+Column: 225 Accelerometer LOWERDRAWER accZ; value = round(original_value), unit = milli g
+Column: 226 Accelerometer MIDDLEDRAWER accX; value = round(original_value), unit = milli g
+Column: 227 Accelerometer MIDDLEDRAWER accY; value = round(original_value), unit = milli g
+Column: 228 Accelerometer MIDDLEDRAWER accZ; value = round(original_value), unit = milli g
+Column: 229 Accelerometer FRIDGE accX; value = round(original_value), unit = milli g
+Column: 230 Accelerometer FRIDGE accY; value = round(original_value), unit = milli g
+Column: 231 Accelerometer FRIDGE accZ; value = round(original_value), unit = milli g
+Column: 232 LOCATION TAG1 X; value = round(original_value), unit = millimetres
+Column: 233 LOCATION TAG1 Y; value = round(original_value), unit = millimetres
+Column: 234 LOCATION TAG1 Z; value = round(original_value), unit = millimetres
+Column: 235 LOCATION TAG2 X; value = round(original_value), unit = millimetres
+Column: 236 LOCATION TAG2 Y; value = round(original_value), unit = millimetres
+Column: 237 LOCATION TAG2 Z; value = round(original_value), unit = millimetres
+Column: 238 LOCATION TAG3 X; value = round(original_value), unit = millimetres
+Column: 239 LOCATION TAG3 Y; value = round(original_value), unit = millimetres
+Column: 240 LOCATION TAG3 Z; value = round(original_value), unit = millimetres
+Column: 241 LOCATION TAG4 X; value = round(original_value), unit = millimetres
+Column: 242 LOCATION TAG4 Y; value = round(original_value), unit = millimetres
+Column: 243 LOCATION TAG4 Z; value = round(original_value), unit = millimetres
+
+Label columns: 
+
+Column: 244 Locomotion
+Column: 245 HL_Activity
+Column: 246 LL_Left_Arm
+Column: 247 LL_Left_Arm_Object
+Column: 248 LL_Right_Arm
+Column: 249 LL_Right_Arm_Object
+Column: 250 ML_Both_Arms

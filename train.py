@@ -11,13 +11,14 @@ from PAMAP2.dataproc import PAMAP
 from UCI_HAR.dataproc import UCI
 from USC_HAD.dataproc import USC
 from WISDM.dataproc import WISDM
+from OPPORTUNITY.dataproc import OPPO
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a HAR task')
     parser.add_argument(
         '--dataset', 
         help='select dataset', 
-        choices=['uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa']
+        choices=['uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo']
         )
     parser.add_argument('--datadir', help='the dir-path of the unpreprocessed data')
     parser.add_argument(
@@ -40,7 +41,8 @@ if __name__ == '__main__':
         'pamap': PAMAP,
         'usc': USC,
         'dasa': DASA,
-        'wisdm': WISDM
+        'wisdm': WISDM,
+        'oppo': OPPO
     }
 
     model_dict = {
