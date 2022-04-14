@@ -16,7 +16,7 @@ SPLIT_RATE=-- # tuple or list
 
 '''
 
-def OPPO(WINDOW_SIZE=30, OVERLAP_RATE=0.5, dataset_dir=r'D:\anaconda\envs\xsg\1\Opportunity\dataset'):
+def OPPO(WINDOW_SIZE=30, OVERLAP_RATE=0.5, dataset_dir='dataset'):
     
     xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data,最终数据
     '''滑窗'''

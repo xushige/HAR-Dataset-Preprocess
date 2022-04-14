@@ -2,12 +2,12 @@
 
 ### 包含数据集
 * phyphox软件自采集excel数据
-* Daily-and-Sports-Activities-dataset
-* PAMAP2 dataset        http://archive.ics.uci.edu/ml/datasets/PAMAP2+Physical+Activity+Monitoring
-* UCI-HAR dataset       https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones
-* USC-HAD dataset
+* Daily-and-Sports-Activities-dataset   http://archive.ics.uci.edu/ml/datasets/Daily+and+Sports+Activities
+* PAMAP2 dataset    http://archive.ics.uci.edu/ml/datasets/PAMAP2+Physical+Activity+Monitoring
+* UCI-HAR dataset   https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones
+* USC-HAD dataset   https://sipi.usc.edu/had/
 * UniMiB-SHAR dataset   http://www.sal.disco.unimib.it/technologies/unimib-shar/
-* WISDM dataset         https://www.cis.fordham.edu/wisdm/dataset.php
+* WISDM dataset   https://www.cis.fordham.edu/wisdm/dataset.php
 * OPPORTUNITY dataset   http://archive.ics.uci.edu/ml/datasets/OPPORTUNITY+Activity+Recognition
 
 
