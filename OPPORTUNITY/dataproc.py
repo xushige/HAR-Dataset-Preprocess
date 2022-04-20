@@ -1,4 +1,3 @@
-from doctest import testfile
 import numpy as np
 import pandas as pd
 from pandas import Series
@@ -44,7 +43,7 @@ def OPPO(WINDOW_SIZE=30, OVERLAP_RATE=0.5, dataset_dir='dataset'):
             xtest += tempx
             ytest += [label] * times
             
-    '''标签转换'''
+    '''标签转换 (17 分类不含 null 类)'''
     label_seq = {
         406516: ['Open Door 1', 0],  # 文件中类别对应编号: [ 类别名, 预处理后label ]
         406517: ['Open Door 2', 1],

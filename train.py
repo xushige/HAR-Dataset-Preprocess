@@ -51,7 +51,7 @@ if __name__ == '__main__':
         'lstm': LSTM
     }
     GPU = torch.cuda.is_available()
-    BS = 128
+    BS = 256
     EP = 50
     LR = 5e-4
 
