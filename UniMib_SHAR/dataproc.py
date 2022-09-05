@@ -14,14 +14,14 @@ def UNIMIB(SPLIT_RATE=(7,3), dataset_dir='data'):
     data = scio.loadmat(os.path.join(dir, 'acc_data.mat'))['acc_data']
     label = scio.loadmat(os.path.join(dir, 'acc_labels.mat'))['acc_labels']
     print('total x shape: %s   total y shape: %s'%(data.shape, label.shape))
-    print("y label 的三轴信息分别表示: [category, subject, trial]， 我们只需要第一轴")
+    print("label 一共包含三维，分别表示: [category, subject, trial]， 我们只需要第一维category信息")
     print(label, '\n')
 
 
     '''数据集切分'''
     train_data, train_label, test_data, test_label = [], [], [], []
     for category in range(17): # 17类
-        cur_cate_data = data[label[:, 0]==category+1] # 当前类的x数据
+        cur_cate_data = data[label[:, 0]==category+1] # 当前类的所有传感数据（包含传感器模态轴x、y、z）
         np.random.shuffle(cur_cate_data) # 打乱
         cur_cate_len = cur_cate_data.shape[0]
         trainlen = int(cur_cate_len*SPLIT_RATE[0]/sum(SPLIT_RATE)) # 训练集长度，默认训练：测试==7：3
@@ -36,7 +36,8 @@ def UNIMIB(SPLIT_RATE=(7,3), dataset_dir='data'):
     print('=================================')
     train_data, train_label, test_data, test_label = np.array(train_data), np.array(train_label), np.array(test_data), np.array(test_label)
 
-    '''观察数据分布可以发现unimib数据集的的453表示前151是x轴数据，151-302为y轴数据，302-453为z轴数据'''
+    '''观察数据分布可以发现unimib数据集的的数据是将xyz轴数据合并在了一起，length==453，表示前151是x轴数据，151-302为y轴数据，302-453为z轴数据'''
+    '''所以我们需要利用reshape将其分开，再根据需要可以通过transpose将模态维转到最后一维'''
     train_data = train_data.reshape(train_data.shape[0], 3, 151).transpose(0, 2, 1)
     test_data = test_data.reshape(test_data.shape[0], 3, 151).transpose(0, 2, 1)
     print('\n---------------------------------------------------------------------------------------------------------------------\n')
