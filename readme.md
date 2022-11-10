@@ -20,5 +20,6 @@ $ python dataproc.py
 ### 预处理+模型训练代码运行样例
 ```
 $ cd HAR-Dataset-Prerocess
-$ python train.py --dataset uci --datadir ./UCI_HAR/UCI_HAR_Dataset --model resnet
+$ python train.py --dataset uci
 ```
+--dataset' 【Required】 choice from 【'uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo'】
