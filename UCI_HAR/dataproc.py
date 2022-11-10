@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-
+import os
 '''
 WINDOW_SIZE=128 # int
 OVERLAP_RATE=0.5 # float in [0，1）
@@ -8,6 +8,11 @@ SPLIT_RATE=-- # tuple or list
 '''
 
 def UCI(dataset_dir='UCI_HAR_Dataset'):
+
+    if not os.path.exists(dataset_dir):
+        print('HAR-Dataset-Preprocess工程克隆不完整，请重新clone')
+        quit()
+        
     dataset = dataset_dir
 
     signal_class = [

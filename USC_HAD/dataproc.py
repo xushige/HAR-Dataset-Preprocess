@@ -9,6 +9,11 @@ SPLIT_RATE=(8,2) # tuple or list
 '''
 
 def USC(WINDOW_SIZE=512, OVERLAP_RATE=0.5, SPLIT_RATE=(8,2), dataset_dir='USC-HAD'):
+
+    if not os.path.exists(dataset_dir):
+        print('HAR-Dataset-Preprocess工程克隆不完整，请重新clone')
+        quit()
+        
     '''数据处理'''
     def slide_window(array, w_s, stride):
         '''

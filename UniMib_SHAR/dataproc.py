@@ -9,6 +9,11 @@ SPLIT_RATE=(7,3) # tuple or list
 '''
 
 def UNIMIB(SPLIT_RATE=(7,3), dataset_dir='data'):
+
+    if not os.path.exists(dataset_dir):
+        print('HAR-Dataset-Preprocess工程克隆不完整，请重新clone')
+        quit()
+        
     '''数据读取'''
     dir = dataset_dir
     data = scio.loadmat(os.path.join(dir, 'acc_data.mat'))['acc_data']

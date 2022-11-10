@@ -20,7 +20,7 @@ def parse_args():
         help='select dataset', 
         choices=['uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo']
         )
-    parser.add_argument('--datadir', help='the dir-path of the unpreprocessed data')
+    parser.add_argument('--datadir', help='the dir-path of the unpreprocessed data', default=None)
     parser.add_argument(
         '--model', 
         help='select network', 
@@ -44,7 +44,15 @@ if __name__ == '__main__':
         'wisdm': WISDM,
         'oppo': OPPO
     }
-
+    dir_dict = {
+        'uci': './UCI_HAR/UCI_HAR_Dataset',
+        'unimib': './UniMib_SHAR/data',
+        'pamap': './PAMAP2/Protocol',
+        'usc': './USC_HAD/USC-HAD',
+        'dasa': './Daily_and_Sports_Activities_dataset/data',
+        'wisdm': './WISDM/WISDM_ar_v1.1',
+        'oppo': './OPPORTUNITY/dataset'
+    }
     model_dict = {
         'cnn':CNN,
         'resnet': ResNet,
@@ -54,11 +62,17 @@ if __name__ == '__main__':
     BS = 256
     EP = 50
     LR = 5e-4
+    print('\n==================================================【HAR 训练任务开始】===================================================\n')
+    print('Dataset_name: 【%s】\nRaw_data direction: 【%s】\nModel: 【%s】' % (args.dataset, args.datadir, args.model))
+    # 默认原始数据路径
+    if args.datadir == None:
+        print('\n未指定原始数据路径，选取数据集默认路径:【%s】' % (dir_dict[args.dataset]))
+        args.datadir = dir_dict[args.dataset]
 
     '''数据集加载'''
     print('\n==================================================【数据集预处理】===================================================\n')
+    # 获取训练与测试【数据，标签】
     train_data, test_data, train_label, test_label = dataset_dict[args.dataset](dataset_dir=args.datadir)
-
 
     '''数据准备'''
     X_train = torch.from_numpy(train_data).float().unsqueeze(1)
@@ -71,7 +85,6 @@ if __name__ == '__main__':
     print('x_train_tensor shape: %s\nx_test_tensor shape: %s'%(X_train.shape, X_test.shape))
     print('Category num: %d'%(category))
     print('If GPU: 【%s】'%(GPU))
-
 
     '''模型加载'''
     print('\n==================================================  【模型加载】  ===================================================\n')

@@ -16,7 +16,10 @@ SPLIT_RATE=-- # tuple or list
 '''
 
 def OPPO(WINDOW_SIZE=30, OVERLAP_RATE=0.5, dataset_dir='dataset'):
-    
+    if not os.path.exists(dataset_dir):
+        print('OPPORTUNITY 数据集下载地址\nhttp://archive.ics.uci.edu/ml/machine-learning-databases/00226/\n将“OpportunityUCIDataset.zip”中名为“dataset”的文件夹放入【HAR-Dataset-Preprocess/OPPORTUNITY】目录下即可运行\nps:【或者自行指定“dataset”文件夹路径】')
+        quit()
+
     xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data,最终数据
     '''滑窗'''
     def slide_window(array, windowsize, overlaprate, label, pattern='train'):

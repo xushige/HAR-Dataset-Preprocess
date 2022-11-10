@@ -1,4 +1,5 @@
 import numpy as np 
+import os
 '''
 WINDOW_SIZE=200 # int
 OVERLAP_RATE=0.75 # float in [0，1）
@@ -6,6 +7,11 @@ SPLIT_RATE=(7,3) # tuple or list
 
 '''
 def WISDM(WINDOW_SIZE=200, OVERLAP_RATE=0.75, SPLIT_RATE=(7,3), dataset_dir='WISDM_ar_v1.1'):
+
+    if not os.path.exists(dataset_dir):
+        print('HAR-Dataset-Preprocess工程克隆不完整，请重新clone')
+        quit()
+
     xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data
 
     def slide_window(array, windowsize, overlaprate, label, split_rate=(7, 3)):

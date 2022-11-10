@@ -8,6 +8,11 @@ SPLIT_RATE=(7,3) # tuple or list
 '''
 
 def DASA(SPLIT_RATE=(7,3), dataset_dir='data'):
+
+    if not os.path.exists(dataset_dir):
+        print('HAR-Dataset-Preprocess工程克隆不完整，请重新clone')
+        quit()
+
     def txt_to_numpy(filename):
         with open(filename, 'r') as f:
             x = []
