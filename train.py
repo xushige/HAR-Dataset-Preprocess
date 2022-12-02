@@ -126,4 +126,4 @@ if __name__ == '__main__':
             _, pre = torch.max(out, 1)
             cor += (pre == label).sum()
         acc = cor.item()/len(Y_test)
-        print('epoch: %d, train-loss: %f, test-acc: %f' % (i, loss, acc))
+        print('epoch: %d, train-loss: %f, val-acc: %f' % (i, loss, acc))
