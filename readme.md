@@ -21,5 +21,5 @@ $ python dataproc.py
 $ cd HAR-Dataset-Prerocess
 $ python train.py --dataset uci
 ```
---dataset 【Required】 choose from 【'uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo'】
---model  choose from 【'cnn', 'resnet', 'lstm', 'transformer'】 
+#### --dataset 【Required】 choose from 【'uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo'】
+#### --model  choose from 【'cnn', 'resnet', 'lstm', 'transformer'】 
