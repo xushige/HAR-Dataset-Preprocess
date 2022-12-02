@@ -1,7 +1,6 @@
 ## Human Activity Recogniton (HAR) 公开数据集预处理与网络搭建
-
+### 如有问题或者优化之处，欢迎留言交流或发起 merge request
 ### 包含数据集
-* phyphox软件自采集excel数据
 * Daily-and-Sports-Activities-dataset   http://archive.ics.uci.edu/ml/datasets/Daily+and+Sports+Activities
 * PAMAP2 dataset    http://archive.ics.uci.edu/ml/datasets/PAMAP2+Physical+Activity+Monitoring
 * UCI-HAR dataset   https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones
@@ -22,4 +21,5 @@ $ python dataproc.py
 $ cd HAR-Dataset-Prerocess
 $ python train.py --dataset uci
 ```
---dataset' 【Required】 choice from 【'uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo'】
+--dataset 【Required】 choose from 【'uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo'】
+--model  choose from 【'cnn', 'resnet', 'lstm', 'transformer'】 
