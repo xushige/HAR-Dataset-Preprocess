@@ -7,6 +7,7 @@ SPLIT_RATE=(7,3) # tuple or list
 
 '''
 def WISDM(WINDOW_SIZE=200, OVERLAP_RATE=0.75, SPLIT_RATE=(7,3), dataset_dir='WISDM_ar_v1.1'):
+    print("\n原数据分析：共6个活动，在WISDM_ar_v1.1_raw.txt文件中，第二列为类别，四五六列为传感信号，抛弃一列和三列即可。数据较杂乱，需要数据清洗\n")
 
     if not os.path.exists(dataset_dir):
         print('HAR-Dataset-Preprocess工程克隆不完整，请重新clone')
@@ -66,8 +67,6 @@ def WISDM(WINDOW_SIZE=200, OVERLAP_RATE=0.75, SPLIT_RATE=(7,3), dataset_dir='WIS
         label[label==category] = category_dict[category]
     label = label.astype(np.int64)
     data = temp[:, 3:].astype(np.float32)
-
-    # data, label = data[::2], label[::2] # 降采样1/2
 
     '''滑窗'''
     for i in range(6):
