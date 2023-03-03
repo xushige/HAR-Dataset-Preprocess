@@ -9,6 +9,9 @@ SPLIT_RATE=(7,3) # tuple or list
 '''
 
 def UNIMIB(SPLIT_RATE=(7,3), dataset_dir='data'):
+    print("\n原数据分析：原始文件共17个活动，acc_data.mat中已经滑窗切好了数据(11771, 453)，标签也已经准备好在acc_labels中(11771, 3)，不需要额外进行滑窗预处理。\n\
+            观察数据分布可以发现unimib数据集的的数据是将xyz轴数据合并在了一起，length==453，表示前151是x轴数据，151-302为y轴数据，302-453为z轴数据\n")
+    print("预处理思路：直接读取数据，匹配标签第一维，按比例进行训练集验证集切分\n")
 
     if not os.path.exists(dataset_dir):
         print('HAR-Dataset-Preprocess工程克隆不完整，请重新clone')
@@ -41,8 +44,7 @@ def UNIMIB(SPLIT_RATE=(7,3), dataset_dir='data'):
     print('=================================')
     train_data, train_label, test_data, test_label = np.array(train_data), np.array(train_label), np.array(test_data), np.array(test_label)
 
-    '''观察数据分布可以发现unimib数据集的的数据是将xyz轴数据合并在了一起，length==453，表示前151是x轴数据，151-302为y轴数据，302-453为z轴数据'''
-    '''所以我们需要利用reshape将其分开，再根据需要可以通过transpose将模态维转到最后一维'''
+    '''x, y, z 模态轴拆分，需要利用reshape将其分开，再根据需要可以通过transpose将模态维转到最后一维'''
     train_data = train_data.reshape(train_data.shape[0], 3, 151).transpose(0, 2, 1)
     test_data = test_data.reshape(test_data.shape[0], 3, 151).transpose(0, 2, 1)
     print('\n---------------------------------------------------------------------------------------------------------------------\n')
