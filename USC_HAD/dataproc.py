@@ -10,7 +10,7 @@ SPLIT_RATE=(8,2) # tuple or list
 
 def USC(WINDOW_SIZE=512, OVERLAP_RATE=0.5, SPLIT_RATE=(8,2), dataset_dir='USC-HAD'):
     print("\n原数据分析：共12个活动，由14个受试者采集，和DASA数据集不同，这里每个mat文件的长度并不一致，因此需要对每一个mat数据进行滑窗预处理后再合并。\n\
-            切分数据集思路可以采取和DASA数据集一样的方法，选取1~2个受试者数据作为验证集（留一法），也可以打乱平均按比例切分（同PAMAP一样）\n")
+            切分数据集思路可以采取和DASA数据集一样的方法，选取1~2个受试者数据作为验证集（留一法），也可以打乱平均按比例切分（同PAMAP一样）。这里用的是打乱后按比例分\n")
 
     if not os.path.exists(dataset_dir):
         print('HAR-Dataset-Preprocess工程克隆不完整，请重新clone')
