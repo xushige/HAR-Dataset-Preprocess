@@ -1,0 +1,4 @@
+
+# this is .gitignore file.
+# 以下是忽略的文件
+__pycache__
