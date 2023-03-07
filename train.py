@@ -21,6 +21,7 @@ def parse_args():
         choices=['uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo']
         )
     parser.add_argument('--datadir', help='the dir-path of the unpreprocessed data', default=None)
+    parser.add_argument('--savepath', help='the dir-path of the .npy array for saving', default='')
     parser.add_argument(
         '--model', 
         help='select network', 
@@ -64,7 +65,7 @@ if __name__ == '__main__':
     EP = 50
     LR = 5e-4
     print('\n==================================================【HAR 训练任务开始】===================================================\n')
-    print('Dataset_name: 【%s】\nRaw_data direction: 【%s】\nModel: 【%s】' % (args.dataset, args.datadir, args.model))
+    print('Dataset_name: 【%s】\nRaw_data direction: 【%s】\nNumpy array save path: 【%s】\nModel: 【%s】' % (args.dataset, args.datadir, args.savepath, args.model))
     # 默认原始数据路径
     if args.datadir == None:
         print('\n未指定原始数据路径，选取数据集默认路径:【%s】' % (dir_dict[args.dataset]))
@@ -73,7 +74,7 @@ if __name__ == '__main__':
     '''数据集加载'''
     print('\n==================================================【数据集预处理】===================================================\n')
     # 获取训练与测试【数据，标签】
-    train_data, test_data, train_label, test_label = dataset_dict[args.dataset](dataset_dir=args.datadir)
+    train_data, test_data, train_label, test_label = dataset_dict[args.dataset](dataset_dir=args.datadir, SAVE_PATH=args.savepath)
 
     '''数据准备'''
     X_train = torch.from_numpy(train_data).float().unsqueeze(1)

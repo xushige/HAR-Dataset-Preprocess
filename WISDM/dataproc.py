@@ -2,11 +2,11 @@ import numpy as np
 import os
 '''
 WINDOW_SIZE=200 # int
-OVERLAP_RATE=0.75 # float in [0，1）
+OVERLAP_RATE=0.5 # float in [0，1）
 SPLIT_RATE=(7,3) # tuple or list  
 
 '''
-def WISDM(WINDOW_SIZE=200, OVERLAP_RATE=0.75, SPLIT_RATE=(7,3), dataset_dir='WISDM_ar_v1.1'):
+def WISDM(dataset_dir='WISDM_ar_v1.1', WINDOW_SIZE=200, OVERLAP_RATE=0.5, SPLIT_RATE=(7,3), SAVE_PATH=''):
     print("\n原数据分析：共6个活动，在WISDM_ar_v1.1_raw.txt文件中，第二列为类别，四五六列为传感信号，抛弃一列和三列即可。数据较杂乱，需要数据清洗\n")
 
     if not os.path.exists(dataset_dir):
@@ -77,6 +77,16 @@ def WISDM(WINDOW_SIZE=200, OVERLAP_RATE=0.75, SPLIT_RATE=(7,3), dataset_dir='WIS
     ytest = np.array(ytest, np.int64)
     print('\n---------------------------------------------------------------------------------------------------------------------\n')
     print('xtrain shape: %s\nxtest shape: %s\nytrain shape: %s\nytest shape: %s'%(xtrain.shape, xtest.shape, ytrain.shape, ytest.shape))
+
+    if SAVE_PATH: # 数组数据保存目录
+        path = os.path.join(SAVE_PATH, 'WISDM')
+        if not os.path.exists(path):
+            os.makedirs(path)
+        np.save(path + '/x_train.npy', xtrain)
+        np.save(path + '/x_test.npy', xtest)
+        np.save(path + '/y_train.npy', ytrain)
+        np.save(path + '/y_test.npy', ytest)
+
     return xtrain, xtest, ytrain, ytest
 
 if __name__ == '__main__':

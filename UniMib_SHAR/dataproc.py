@@ -8,7 +8,7 @@ OVERLAP_RATE=0 # float in [0，1）
 SPLIT_RATE=(7,3) # tuple or list  
 '''
 
-def UNIMIB(SPLIT_RATE=(7,3), dataset_dir='data'):
+def UNIMIB(dataset_dir='data', SPLIT_RATE=(7,3), SAVE_PATH=''):
     print("\n原数据分析：原始文件共17个活动，acc_data.mat中已经滑窗切好了数据(11771, 453)，标签也已经准备好在acc_labels中(11771, 3)，不需要额外进行滑窗预处理。\n\
             观察数据分布可以发现unimib数据集的的数据是将xyz轴数据合并在了一起，length==453，表示前151是x轴数据，151-302为y轴数据，302-453为z轴数据\n")
     print("预处理思路：直接读取数据，匹配标签第一维，按比例进行训练集验证集切分\n")
@@ -49,6 +49,16 @@ def UNIMIB(SPLIT_RATE=(7,3), dataset_dir='data'):
     test_data = test_data.reshape(test_data.shape[0], 3, 151).transpose(0, 2, 1)
     print('\n---------------------------------------------------------------------------------------------------------------------\n')
     print('xtrain shape: %s\nxtest shape: %s\nytrain shape: %s\nytest shape: %s'%(train_data.shape, test_data.shape, train_label.shape, test_label.shape))
+
+    if SAVE_PATH: # 数组数据保存目录
+        path = os.path.join(SAVE_PATH, 'UniMiB-SHAR')
+        if not os.path.exists(path):
+            os.makedirs(path)
+        np.save(path + '/x_train.npy', train_data)
+        np.save(path + '/x_test.npy', test_data)
+        np.save(path + '/y_train.npy', train_label)
+        np.save(path + '/y_test.npy', test_label)
+
     return train_data, test_data, train_label, test_label
 
 

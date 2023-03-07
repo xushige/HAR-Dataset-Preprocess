@@ -15,7 +15,7 @@ SPLIT_RATE=-- # tuple or list
 
 '''
 
-def OPPO(WINDOW_SIZE=30, OVERLAP_RATE=0.5, dataset_dir='dataset'):
+def OPPO(dataset_dir='dataset', WINDOW_SIZE=30, OVERLAP_RATE=0.5, SAVE_PATH=''):
     print("\n原数据分析：原始文件共17个活动（不含null），column_names.txt文件中需要提取有效轴，论文中提到['S2-ADL4.dat', 'S2-ADL5.dat', 'S3-ADL4.dat', 'S3-ADL5.dat']用作验证集\n")
     print("预处理思路：提取有效列，重置活动label，遍历文件进行滑窗，缺值填充，标准化等方法\n")
     
@@ -113,6 +113,15 @@ def OPPO(WINDOW_SIZE=30, OVERLAP_RATE=0.5, dataset_dir='dataset'):
     xtrain, xtest, ytrain, ytest = np.array(xtrain), np.array(xtest), np.array(ytrain), np.array(ytest)
     print('\n---------------------------------------------------------------------------------------------------------------------\n')
     print('xtrain shape: %s\nxtest shape: %s\nytrain shape: %s\nytest shape: %s'%(xtrain.shape, xtest.shape, ytrain.shape, ytest.shape))
+
+    if SAVE_PATH: # 数组数据保存目录
+        path = os.path.join(SAVE_PATH, 'OPPORTUNITY')
+        if not os.path.exists(path):
+            os.makedirs(path)
+        np.save(path + '/x_train.npy', xtrain)
+        np.save(path + '/x_test.npy', xtest)
+        np.save(path + '/y_train.npy', ytrain)
+        np.save(path + '/y_test.npy', ytest)
     return xtrain, xtest, ytrain, ytest
 
 if __name__ == '__main__':

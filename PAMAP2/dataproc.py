@@ -13,7 +13,7 @@ SPLIT_RATE=(7,3) # tuple or list
 
 '''
 
-def PAMAP(WINDOW_SIZE=171, OVERLAP_RATE=0, SPLIT_RATE=(7,3), dataset_dir='Protocol', VALIDATION_SUBJECT=None, Z_SCORE=True):
+def PAMAP(dataset_dir='Protocol', WINDOW_SIZE=171, OVERLAP_RATE=0, SPLIT_RATE=(7,3), VALIDATION_SUBJECT=None, Z_SCORE=True, SAVE_PATH=''):
     print("\n原数据分析：共12个活动，文件包含9个受试者收集的数据，在数据集的切分上可以选择平均切分，也可以选择某1个受试者的数据作为验证集（留一法）。\n\
             如果用的是平均切分，所以val-acc会相对偏高，这里默认用平均切分\n")
     print('预处理思路：提取有效列，重置活动label，遍历文件进行滑窗，缺值填充，标准化等方法\n')
@@ -88,6 +88,16 @@ def PAMAP(WINDOW_SIZE=171, OVERLAP_RATE=0, SPLIT_RATE=(7,3), dataset_dir='Protoc
         xtrain, xtest = xtrain_2d.reshape(xtrain.shape[0], xtrain.shape[1], xtrain.shape[2]), xtest_2d.reshape(xtest.shape[0], xtest.shape[1], xtest.shape[2])
     print('\n---------------------------------------------------------------------------------------------------------------------\n')
     print('xtrain shape: %s\nxtest shape: %s\nytrain shape: %s\nytest shape: %s'%(xtrain.shape, xtest.shape, ytrain.shape, ytest.shape))
+
+    if SAVE_PATH: # 数组数据保存目录
+        path = os.path.join(SAVE_PATH, 'PAMAP2')
+        if not os.path.exists(path):
+            os.makedirs(path)
+        np.save(path + '/x_train.npy', xtrain)
+        np.save(path + '/x_test.npy', xtest)
+        np.save(path + '/y_train.npy', ytrain)
+        np.save(path + '/y_test.npy', ytest)
+
     return xtrain, xtest, ytrain, ytest
 
 

@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 import os
 '''
 WINDOW_SIZE=128 # int
@@ -7,7 +6,7 @@ OVERLAP_RATE=0.5 # float in [0，1）
 SPLIT_RATE=-- # tuple or list  
 '''
 
-def UCI(dataset_dir='UCI_HAR_Dataset'):
+def UCI(dataset_dir='UCI_HAR_Dataset', SAVE_PATH=''):
     print("\n原数据分析：原数据已经指定比例切分好，窗口大小128，重叠率50%\n")
     print("预处理思路：读取数据，txt转numpy array\n")
 
@@ -51,11 +50,18 @@ def UCI(dataset_dir='UCI_HAR_Dataset'):
     X_test = xload(X_test_path)
     Y_train = yload(Y_train_path)
     Y_test = yload(Y_test_path)
-    Y_train_onehot = np.array(pd.get_dummies(Y_train), dtype=np.int8)
-    Y_test_onehot = np.array(pd.get_dummies(Y_test), dtype=np.int8)
 
     print('\n---------------------------------------------------------------------------------------------------------------------\n')
     print('xtrain shape: %s\nxtest shape: %s\nytrain shape: %s\nytest shape: %s'%(X_train.shape, X_test.shape, Y_train.shape, Y_test.shape))
+
+    if SAVE_PATH: # 数组数据保存目录
+        path = os.path.join(SAVE_PATH, 'UCI-HAR')
+        if not os.path.exists(path):
+            os.makedirs(path)
+        np.save(path + '/x_train.npy', X_train)
+        np.save(path + '/x_test.npy', X_test)
+        np.save(path + '/y_train.npy', Y_train)
+        np.save(path + '/y_test.npy', Y_test)
 
     return X_train, X_test, Y_train, Y_test
 
