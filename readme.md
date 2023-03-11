@@ -22,4 +22,4 @@ $ cd HAR-Dataset-Prerocess
 $ python train.py --dataset uci --model transformer
 ```
 #### --dataset 【Required】 choose from 【'uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo'】
-#### --model  choose from 【'cnn', 'resnet', 'lstm', 'transformer'】 
+#### --model  choose from 【'cnn', 'resnet', 'lstm', 'vit'】 
