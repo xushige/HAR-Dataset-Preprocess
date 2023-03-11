@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch
-
+import math
 '''Convolutional Neural Network'''
 class CNN(nn.Module):
     def __init__(self, train_shape, category):
@@ -119,18 +119,16 @@ class LSTM(nn.Module):
 
 '''Multi Self-Attention: Transformer'''
 class TransformerBlock(nn.Module):
-    def __init__(self, input_dim, output_dim, head_num=4, att_size=64):
+    def __init__(self, input_dim, head_num=4, att_size=64):
         super().__init__()
         '''
             input_dim: 输入维度, 即embedding维度
-            output_dim: 输出维度
             head_num: 多头自注意力
             att_size: QKV矩阵维度
         '''
         self.head_num = head_num
         self.att_size = att_size
         self.input_dim = input_dim
-        self.output_dim = output_dim
         self.query = nn.Linear(input_dim, head_num * att_size, bias=False)
         self.key = nn.Linear(input_dim, head_num * att_size, bias=False)
         self.value = nn.Linear(input_dim, head_num * att_size, bias=False)
@@ -138,26 +136,40 @@ class TransformerBlock(nn.Module):
             nn.Linear(head_num*att_size, input_dim),
             nn.LayerNorm(input_dim)
         ) # 恢复输入维度
-        self.forward_mlp = nn.Sequential(
-            nn.Linear(input_dim, output_dim),
-            nn.LayerNorm(output_dim)
-        ) # 变为输出维度
-        
+        self.downsample_mlp = nn.Sequential(
+            nn.Linear(input_dim*2, input_dim),
+            nn.LayerNorm(input_dim)
+        ) # 降采样后恢复输入维度
+    
+    def patch_merge(self, x):
+        '''
+            用于进行 1/2 降采样
+            x.shape: [batch, modal_leng, patch_num, input_dim]
+        '''
+        batch, modal_leng, patch_num, input_dim = x.shape
+        if patch_num % 2: # patch_num补成偶数方便1/2降采样
+            x = nn.ZeroPad2d((0, 0, 0, 1))(x)
+        x0 = x[:, :, 0::2, :] # [batch, modal_leng, patch_num / 2, input_dim]
+        x1 = x[:, :, 1::2, :] # # [batch, modal_leng, patch_num / 2, input_dim]
+        x = torch.cat([x0, x1], dim=-1) # [batch, modal_leng, patch_num / 2, input_dim * 2]
+        x = nn.ReLU()(self.downsample_mlp(x)) # [batch, modal_leng, patch_num / 2, input_dim]
+        return x
+
     def forward(self, x):
         '''
-            x.shape: [batch, patch_num, input_dim]
+            x.shape: [batch, modal_leng, patch_num, input_dim]
         '''
-        batch, patch_num, input_dim = x.shape
+        batch, modal_leng, patch_num, input_dim = x.shape
         # Q, K, V
-        query = self.query(x).reshape(batch, patch_num, self.head_num, self.att_size).permute(0, 2, 1, 3) # [batch, head_num, patch_num, att_size]
-        key = self.key(x).reshape(batch, patch_num, self.head_num, self.att_size).permute(0, 2, 3, 1) # [batch, head_num, att_size, patch_num]
-        value = self.value(x).reshape(batch, patch_num, self.head_num, self.att_size).permute(0, 2, 1, 3) # [batch, head_num, patch_num, att_size]
+        query = self.query(x).reshape(batch, modal_leng, patch_num, self.head_num, self.att_size).permute(0, 1, 3, 2, 4) # [batch, modal_leng, head_num, patch_num, att_size]
+        key = self.key(x).reshape(batch, modal_leng, patch_num, self.head_num, self.att_size).permute(0, 1, 3, 4, 2)        # [batch, modal_leng, head_num, att_size, patch_num]
+        value = self.value(x).reshape(batch, modal_leng, patch_num, self.head_num, self.att_size).permute(0, 1, 3, 2, 4)    # [batch, modal_leng, head_num, patch_num, att_size]
         # Multi Self-Attention Score
-        z = torch.matmul(nn.Softmax(dim=-1)(torch.matmul(query, key) / (self.att_size ** 0.5)), value) # [batch, head_num, patch_num, att_size]
-        z = z.permute(0, 2, 1, 3).reshape(batch, patch_num, -1) # [batch, patch_num, head_num*att_size]
+        z = torch.matmul(nn.Softmax(dim=-1)(torch.matmul(query, key) / (self.att_size ** 0.5)), value) # [batch, modal_leng, head_num, patch_num, att_size]
+        z = z.permute(0, 1, 3, 2, 4).reshape(batch, modal_leng, patch_num, -1) # [batch, modal_leng, patch_num, head_num*att_size]
         # Forward
-        z = nn.ReLU()(x + self.att_mlp(z)) # [batch, patch_num, input_dim]
-        out = nn.ReLU()(self.forward_mlp(z)) # [batch, patch_num, output_dim]
+        z = nn.ReLU()(x + self.att_mlp(z)) # [batch, modal_leng, patch_num, input_dim]
+        out = self.patch_merge(z) # 降采样[batch, modal_leng, patch_num/2, output_dim]
         return out
 
 class Transformer(nn.Module):
@@ -169,31 +181,31 @@ class Transformer(nn.Module):
             embedding_dim: embedding 维度
         '''
         # cut patch
-        # 对于传感窗口数据来讲，模态轴的patch数应该等于轴数，而时序轴这里按算术平方根进行切patch
-        # 例如 uci-har 数据集窗口尺寸为 [128, 9]，patch_num 应当为 [11, 9], 总patchs数为 11*9=99
-        self.patch_num = (int(train_shape[-2]**0.5), train_shape[-1]) 
-        self.all_patchs = self.patch_num[0] * self.patch_num[1]
-        self.kernel_size = (train_shape[-2]//self.patch_num[0], train_shape[-1]//self.patch_num[1])
-        self.stride = self.kernel_size
+        # 对于传感窗口数据来讲，在每个单独的模态轴上对时序轴进行patch切分
+        # 例如 uci-har 数据集窗口尺寸为 [128, 9]，一个patch包含4个数据，那么每个模态轴上的patch_num为32, 总patch数为 32 * 9
+        self.series_leng = train_shape[-2]
+        self.modal_leng = train_shape[-1]
+        self.patch_num = self.series_leng // 4
+        
         self.patch_conv = nn.Conv2d(
             in_channels=1,
             out_channels=embedding_dim,
-            kernel_size=self.kernel_size,
-            stride=self.stride,
+            kernel_size=(4, 1),
+            stride=(4, 1),
             padding=0
         )
         # 位置信息
-        self.position_embedding = nn.Parameter(torch.zeros(1, self.all_patchs, embedding_dim))
+        self.position_embedding = nn.Parameter(torch.zeros(1, self.modal_leng, self.patch_num, embedding_dim))
         # Multi Self-Attention Layer
+        # 三次1/2降采样，patch_num维度最终会缩小为原来的1/8，向上取整
         self.msa_layer = nn.Sequential(
-            TransformerBlock(embedding_dim, embedding_dim//2), # 4层多头注意力层，每层输出维度下降 1/2
-            TransformerBlock(embedding_dim//2, embedding_dim//4),
-            TransformerBlock(embedding_dim//4, embedding_dim//8),
-            TransformerBlock(embedding_dim//8, embedding_dim//16)
+            TransformerBlock(embedding_dim), 
+            TransformerBlock(embedding_dim),
+            TransformerBlock(embedding_dim)
         )
         # classification
         self.dense_tower = nn.Sequential(
-            nn.Linear(self.patch_num[0] * self.patch_num[1] * embedding_dim//16, 1024),
+            nn.Linear(self.modal_leng * math.ceil(self.patch_num/8) * embedding_dim, 1024),
             nn.LayerNorm(1024),
             nn.ReLU(),
             nn.Linear(1024, category)
@@ -203,9 +215,13 @@ class Transformer(nn.Module):
         '''
             x.shape: [b, c, h, w]
         '''
-        x = self.patch_conv(x) # [batch, embedding_dim, patch_num[0], patch_num[1]]
-        x = self.position_embedding + x.reshape(x.shape[0], x.shape[1], -1).permute(0, 2, 1) # [batch, all_patchs, embedding_dim]
-        x = self.msa_layer(x)
+        x = self.patch_conv(x) # [batch, embedding_dim, patch_num, modal_leng]
+        x = self.position_embedding + x.permute(0, 3, 2, 1) # [batch, modal_leng, patch_num, embedding_dim]
+        #    [batch, modal_leng, patch_num, input_dim] 
+        # -> [batch, modal_leng, patch_num/2, input_dim] 
+        # -> [batch, modal_leng, patch_num/4, input_dim]
+        # -> [batch, modal_leng, patch_num/8, input_dim]
+        x = self.msa_layer(x) 
         x = nn.Flatten()(x)
         x = self.dense_tower(x)
         return x
