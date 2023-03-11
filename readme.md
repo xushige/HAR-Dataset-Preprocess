@@ -12,14 +12,14 @@
 
 ### 预处理代码运行样例
 ```
-$ cd UniMiB-SHAR
+$ cd HAR-Dataset-Preprocess/UniMib_SHAR
 $ python dataproc.py
 ```
 
 ### 预处理+模型训练代码运行样例
 ```
 $ cd HAR-Dataset-Prerocess
-$ python train.py --dataset uci --model transformer
+$ python train.py --dataset uci --model vit
 ```
 #### --dataset 【Required】 choose from 【'uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo'】
 #### --model  choose from 【'cnn', 'resnet', 'lstm', 'vit'】 
