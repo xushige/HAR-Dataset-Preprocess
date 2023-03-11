@@ -117,8 +117,8 @@ class LSTM(nn.Module):
         x = self.fc(x)
         return x
 
-'''Multi Self-Attention: Transformer'''
-class TransformerBlock(nn.Module):
+'''Multi Self-Attention: VisionTransformer'''
+class VisionTransformerBlock(nn.Module):
     def __init__(self, input_dim, head_num=4, att_size=64):
         super().__init__()
         '''
@@ -172,8 +172,8 @@ class TransformerBlock(nn.Module):
         out = self.patch_merge(z) # 降采样[batch, modal_leng, patch_num/2, output_dim]
         return out
 
-class Transformer(nn.Module):
-    def __init__(self, train_shape, category, embedding_dim=512):
+class VisionTransformer(nn.Module):
+    def __init__(self, train_shape, category, embedding_dim=256, patch_size=4):
         super().__init__()
         '''
             train_shape: 总体训练样本的shape
@@ -185,13 +185,13 @@ class Transformer(nn.Module):
         # 例如 uci-har 数据集窗口尺寸为 [128, 9]，一个patch包含4个数据，那么每个模态轴上的patch_num为32, 总patch数为 32 * 9
         self.series_leng = train_shape[-2]
         self.modal_leng = train_shape[-1]
-        self.patch_num = self.series_leng // 4
+        self.patch_num = self.series_leng // patch_size
         
         self.patch_conv = nn.Conv2d(
             in_channels=1,
             out_channels=embedding_dim,
-            kernel_size=(4, 1),
-            stride=(4, 1),
+            kernel_size=(patch_size, 1),
+            stride=(patch_size, 1),
             padding=0
         )
         # 位置信息
@@ -199,13 +199,13 @@ class Transformer(nn.Module):
         # Multi Self-Attention Layer
         # 三次1/2降采样，patch_num维度最终会缩小为原来的1/8，向上取整
         self.msa_layer = nn.Sequential(
-            TransformerBlock(embedding_dim), 
-            TransformerBlock(embedding_dim),
-            TransformerBlock(embedding_dim)
+            VisionTransformerBlock(embedding_dim), 
+            VisionTransformerBlock(embedding_dim),
+            VisionTransformerBlock(embedding_dim)
         )
         # classification
         self.dense_tower = nn.Sequential(
-            nn.Linear(self.modal_leng * math.ceil(self.patch_num/8) * embedding_dim, 1024),
+            nn.Linear(self.modal_leng * math.ceil(self.patch_num / 8) * embedding_dim, 1024),
             nn.LayerNorm(1024),
             nn.ReLU(),
             nn.Linear(1024, category)
