@@ -19,7 +19,7 @@ $ python dataproc.py
 ### 预处理+模型训练代码运行样例
 ```
 $ cd HAR-Dataset-Prerocess
-$ python train.py --dataset uci --model vit
+$ python train.py --dataset wisdm --model vit
 ```
 #### --dataset 【Required】 choose from 【'uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo'】
 #### --model  choose from 【'cnn', 'resnet', 'lstm', 'vit'】 
