@@ -18,14 +18,14 @@ def parse_args():
     parser.add_argument(
         '--dataset', 
         help='select dataset', 
-        choices=['uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo']
+        choices=dataset_dict.keys()
         )
     parser.add_argument('--datadir', help='the dir-path of the unpreprocessed data', default=None)
     parser.add_argument('--savepath', help='the dir-path of the .npy array for saving', default='')
     parser.add_argument(
         '--model', 
         help='select network', 
-        choices=['cnn', 'resnet', 'lstm', 'transformer'],
+        choices=model_dict.keys(),
         default='cnn'
         )
     args = parser.parse_args()
@@ -34,8 +34,6 @@ def parse_args():
 
 
 if __name__ == '__main__':
-    args = parse_args()
-
     dataset_dict = {
         'uci': UCI,
         'unimib': UNIMIB,
@@ -58,8 +56,9 @@ if __name__ == '__main__':
         'cnn':CNN,
         'resnet': ResNet,
         'lstm': LSTM,
-        'transformer': Transformer
+        'vit': VisionTransformer
     }
+    args = parse_args()
     GPU = torch.cuda.is_available()
     BS = 128
     EP = 50
