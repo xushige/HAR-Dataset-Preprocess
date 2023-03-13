@@ -1,10 +1,12 @@
 import argparse
+import os
 import torch
 import torch.nn as nn
 from torch.utils.data import TensorDataset, DataLoader
 import sys
 sys.path.append(r'../HAR-Dataset-Prerocess')
 from model import *
+from utils import *
 from Daily_and_Sports_Activities_dataset.dataproc import DASA
 from UniMib_SHAR.dataproc import UNIMIB
 from PAMAP2.dataproc import PAMAP
@@ -31,8 +33,6 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-
-
 if __name__ == '__main__':
     dataset_dict = {
         'uci': UCI,
@@ -44,13 +44,22 @@ if __name__ == '__main__':
         'oppo': OPPO
     }
     dir_dict = {
-        'uci': './UCI_HAR/UCI_HAR_Dataset',
-        'unimib': './UniMib_SHAR/data',
-        'pamap': './PAMAP2/Protocol',
-        'usc': './USC_HAD/USC-HAD',
-        'dasa': './Daily_and_Sports_Activities_dataset/data',
-        'wisdm': './WISDM/WISDM_ar_v1.1',
-        'oppo': './OPPORTUNITY/dataset'
+        'uci': 'UCI_HAR/UCI HAR Dataset',
+        'unimib': 'UniMib_SHAR/data',
+        'pamap': 'PAMAP2/PAMAP2_Dataset/Protocol',
+        'usc': 'USC_HAD/USC-HAD',
+        'dasa': 'Daily_and_Sports_Activities_dataset/data',
+        'wisdm': 'WISDM/WISDM_ar_v1.1',
+        'oppo': 'OPPORTUNITY/OpportunityUCIDataset/dataset'
+    }
+    download_url_dict = {
+        'uci': 'https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip',
+        'unimib': 'https://www.dropbox.com/s/x2fpfqj0bpf8ep6/UniMiB-SHAR.zip?dl=0',
+        'pamap': 'http://archive.ics.uci.edu/ml/machine-learning-databases/00231/PAMAP2_Dataset.zip',
+        'usc': 'https://sipi.usc.edu/had/USC-HAD.zip',
+        'dasa': 'http://archive.ics.uci.edu/ml/machine-learning-databases/00256/data.zip',
+        'wisdm': 'https://www.cis.fordham.edu/wisdm/includes/datasets/latest/WISDM_ar_latest.tar.gz',
+        'oppo': 'http://archive.ics.uci.edu/ml/machine-learning-databases/00226/OpportunityUCIDataset.zip'
     }
     model_dict = {
         'cnn':CNN,
@@ -67,9 +76,15 @@ if __name__ == '__main__':
     print('Dataset_name: 【%s】\nRaw_data direction: 【%s】\nNumpy array save path: 【%s】\nModel: 【%s】' % (args.dataset, args.datadir, args.savepath, args.model))
     # 默认原始数据路径
     if args.datadir == None:
-        print('\n未指定原始数据路径，选取数据集默认路径:【%s】' % (dir_dict[args.dataset]))
+        print('\n未指定数据集读取路径，选取默认路径:【%s】' % (dir_dict[args.dataset]))
         args.datadir = dir_dict[args.dataset]
-
+    # 下载数据集
+    if not os.path.exists(args.datadir):
+        download_dataset(
+            dataset_name=args.dataset,
+            file_url=download_url_dict[args.dataset],
+            dir_path=args.datadir.split('/')[0]
+        )
     '''数据集加载'''
     print('\n==================================================【数据集预处理】===================================================\n')
     # 获取训练与测试【数据，标签】

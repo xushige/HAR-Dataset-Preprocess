@@ -9,10 +9,6 @@ SPLIT_RATE=(7,3) # tuple or list
 def WISDM(dataset_dir='WISDM_ar_v1.1', WINDOW_SIZE=200, OVERLAP_RATE=0.5, SPLIT_RATE=(7,3), SAVE_PATH=''):
     print("\n原数据分析：共6个活动，在WISDM_ar_v1.1_raw.txt文件中，第二列为类别，四五六列为传感信号，抛弃一列和三列即可。数据较杂乱，需要数据清洗\n")
 
-    if not os.path.exists(dataset_dir):
-        print('HAR-Dataset-Preprocess工程克隆不完整，请重新clone')
-        quit()
-
     xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data
 
     def slide_window(array, windowsize, overlaprate, label, split_rate=(7, 3)):

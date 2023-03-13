@@ -18,10 +18,6 @@ SPLIT_RATE=-- # tuple or list
 def OPPO(dataset_dir='dataset', WINDOW_SIZE=30, OVERLAP_RATE=0.5, SAVE_PATH=''):
     print("\n原数据分析：原始文件共17个活动（不含null），column_names.txt文件中需要提取有效轴，论文中提到['S2-ADL4.dat', 'S2-ADL5.dat', 'S3-ADL4.dat', 'S3-ADL5.dat']用作验证集\n")
     print("预处理思路：提取有效列，重置活动label，遍历文件进行滑窗，缺值填充，标准化等方法\n")
-    
-    if not os.path.exists(dataset_dir):
-        print('OPPORTUNITY 数据集下载地址\nhttp://archive.ics.uci.edu/ml/machine-learning-databases/00226/\n将“OpportunityUCIDataset.zip”中名为“dataset”的文件夹放入【HAR-Dataset-Preprocess/OPPORTUNITY】目录下即可运行\nps:【或者通过 --datadir 自行指定“dataset”文件夹路径】')
-        quit()
 
     xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data,最终数据
     '''滑窗'''

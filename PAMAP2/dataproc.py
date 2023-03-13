@@ -19,9 +19,7 @@ def PAMAP(dataset_dir='Protocol', WINDOW_SIZE=171, OVERLAP_RATE=0, SPLIT_RATE=(7
     print('预处理思路：提取有效列，重置活动label，遍历文件进行滑窗，缺值填充，标准化等方法\n')
 
     assert VALIDATION_SUBJECT in ['101', '102', '103', '104', '105', '106', '107', '108', '109', None]
-    if not os.path.exists(dataset_dir):
-        print('OPAMAP2 数据集下载地址\nhttp://archive.ics.uci.edu/ml/machine-learning-databases/00231/\n将“PAMAP2_Dataset.zip”中的“Protocol”文件夹放入【HAR-Dataset-Preprocess/PAMAP2】目录下即可运行\nps:【或者通过 --datadir 自行指定“Protocol”文件夹路径】')
-        quit()
+    
     xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data
     category_dict = dict(zip([*range(12)], [1, 2, 3, 4, 5, 6, 7, 12, 13, 16, 17, 24])) #12分类所对应的实际label，对应readme.pdf
 

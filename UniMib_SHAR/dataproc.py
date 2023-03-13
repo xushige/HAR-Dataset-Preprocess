@@ -12,10 +12,6 @@ def UNIMIB(dataset_dir='data', SPLIT_RATE=(7,3), SAVE_PATH=''):
     print("\n原数据分析：原始文件共17个活动，acc_data.mat中已经滑窗切好了数据(11771, 453)，标签也已经准备好在acc_labels中(11771, 3)，不需要额外进行滑窗预处理。\n\
             观察数据分布可以发现unimib数据集的的数据是将xyz轴数据合并在了一起，length==453，表示前151是x轴数据，151-302为y轴数据，302-453为z轴数据\n")
     print("预处理思路：直接读取数据，匹配标签第一维，按比例进行训练集验证集切分\n")
-
-    if not os.path.exists(dataset_dir):
-        print('HAR-Dataset-Preprocess工程克隆不完整，请重新clone')
-        quit()
         
     '''数据读取'''
     dir = dataset_dir

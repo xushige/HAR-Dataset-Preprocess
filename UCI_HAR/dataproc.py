@@ -9,10 +9,6 @@ SPLIT_RATE=-- # tuple or list
 def UCI(dataset_dir='UCI_HAR_Dataset', SAVE_PATH=''):
     print("\n原数据分析：原数据已经指定比例切分好，窗口大小128，重叠率50%\n")
     print("预处理思路：读取数据，txt转numpy array\n")
-
-    if not os.path.exists(dataset_dir):
-        print('HAR-Dataset-Preprocess工程克隆不完整，请重新clone')
-        quit()
         
     dataset = dataset_dir
 
