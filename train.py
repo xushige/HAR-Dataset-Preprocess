@@ -54,7 +54,7 @@ if __name__ == '__main__':
     }
     download_url_dict = {
         'uci': 'https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip',
-        'unimib': 'https://cvws.icloud-content.com.cn/B/ASdy4_6QGJ8i4pPMNoToriXa7nm4Ad2hwwtu0yNk4eNttEynQCd9X1EZ/UniMiB-SHAR.zip?o=AtP30jip98ZRj3bph_QGRSHp5K8hib0H88DkKagY41mW&v=1&x=3&a=CAog78Weas7GEz0BczfsnMZV1SI43oldlgaASpmlM8r_eLoSbRCe1N3S7TAYnrG51O0wIgEAUgTa7nm4WgR9X1EZaiYRDIJkgaw09Jutb9qZMQewIAJ1oECaxeg1R5I1BGCKB6X3Oko9w3ImBB7WRjWtdPvINsX8jxhjUZhVt6pwqW4PCiNoqJFmBIM70IJtFtM&e=1678704007&fl=&r=b9662625-0fac-4d32-8192-0a2527e122c8-1&k=xHD-RvY5fOZ1Of642JJmzw&ckc=com.apple.clouddocs&ckz=com.apple.CloudDocs&p=213&s=8WB3xXc9yuzOZDqulVO0Ee1SyKo&+=037e2f38-61ef-4500-809a-9cb1dc2b4141',
+        'unimib': 'https://www.dropbox.com/s/x2fpfqj0bpf8ep6/UniMiB-SHAR.zip',
         'pamap': 'http://archive.ics.uci.edu/ml/machine-learning-databases/00231/PAMAP2_Dataset.zip',
         'usc': 'https://sipi.usc.edu/had/USC-HAD.zip',
         'dasa': 'http://archive.ics.uci.edu/ml/machine-learning-databases/00256/data.zip',
