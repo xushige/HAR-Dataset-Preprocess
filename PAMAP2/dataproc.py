@@ -98,6 +98,5 @@ def PAMAP(dataset_dir='Protocol', WINDOW_SIZE=171, OVERLAP_RATE=0, SPLIT_RATE=(7
 
     return xtrain, xtest, ytrain, ytest
 
-
 if __name__ == '__main__':
     PAMAP()
