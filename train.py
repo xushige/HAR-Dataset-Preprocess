@@ -54,7 +54,7 @@ if __name__ == '__main__':
     }
     download_url_dict = {
         'uci': 'https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip',
-        'unimib': 'https://www.dropbox.com/s/x2fpfqj0bpf8ep6/UniMiB-SHAR.zip',
+        'unimib': 'https://www.dropbox.com/s/x2fpfqj0bpf8ep6/UniMiB-SHAR.zip', # 由于unimib数据集无法直接访问下载，因此本项目里包含了原始传感数据
         'pamap': 'http://archive.ics.uci.edu/ml/machine-learning-databases/00231/PAMAP2_Dataset.zip',
         'usc': 'https://sipi.usc.edu/had/USC-HAD.zip',
         'dasa': 'http://archive.ics.uci.edu/ml/machine-learning-databases/00256/data.zip',
