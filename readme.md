@@ -9,7 +9,6 @@
 * WISDM dataset   https://www.cis.fordham.edu/wisdm/dataset.php
 * OPPORTUNITY dataset   http://archive.ics.uci.edu/ml/datasets/OPPORTUNITY+Activity+Recognition
 
-
 ### 预处理代码运行样例
 ```
 $ cd HAR-Dataset-Preprocess/UniMib_SHAR
