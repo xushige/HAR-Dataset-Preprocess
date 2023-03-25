@@ -1,0 +1,14 @@
+
+# this is .gitignore file.
+# 以下是忽略的文件
+__pycache__
+__MACOSX
+UCI_HAR/UCI HAR Dataset
+PAMAP2/PAMAP2_Dataset
+USC_HAD/USC-HAD
+Daily_and_Sports_Activities/data
+WISDM/WISDM_ar_v1.1
+OPPORTUNITY/OpportunityUCIDataset
+UniMiB_SHAR/UniMiB-SHAR
+*.zip
+.DS_Store
