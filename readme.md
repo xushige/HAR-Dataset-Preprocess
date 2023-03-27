@@ -19,7 +19,7 @@ pip3 install -r requirements.txt
 python3 train.py --dataset wisdm --model vit
 ```
 #### --dataset choose from 【'uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo'】
-#### --model choose from 【'cnn', 'resnet', 'res2net', 'resnext', 'sknet', 'resnest', 'lstm', 'ca', 'sa', 'dilation', 'depthwise', 'dcn', 'vit', 'swin'】 
+#### --model choose from 【'cnn', 'resnet', 'res2net', 'resnext', 'sknet', 'resnest', 'lstm', 'ca', 'sa', 'dilation', 'depthwise', 'shufflenet', 'dcn', 'vit', 'swin'】 
 <details open>
 <summary>Supported Models</summary>
 
@@ -34,6 +34,7 @@ python3 train.py --dataset wisdm --model vit
 - [x] ['sa': spatial_attention.SpatialAttentionNeuralNetwork](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/spatial_attention.py)
 - [x] ['dilation': dilated_conv.DilatedConv](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/dilated_conv.py)
 - [x] ['depthwise': depthwise_conv.DepthwiseConv](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/depthwise_conv.py)
+- [x] ['shufflenet': shufflenet.ShuffleNet](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/shufflenet.py)
 - [x] ['dcn': dcn.DeformableConvolutionalNetwork](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/dcn.py)
 - [x] ['vit': vit.VisionTransformer](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/vit.py)
 - [x] ['swin': swin.SwinTransformer](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/swin.py)

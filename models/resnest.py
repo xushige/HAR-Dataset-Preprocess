@@ -6,7 +6,7 @@ class ResNextBlock(nn.Module):
     def __init__(self, inchannel, outchannel, kernel_size=9, stride=1, groups=16):
         super().__init__()
         if inchannel != 1:
-            assert inchannel // groups * groups == inchannel # inchannel必须整除groups
+            assert inchannel % groups == 0 # inchannel必须整除groups
             group_channel = inchannel // groups  
         else:
             group_channel = outchannel

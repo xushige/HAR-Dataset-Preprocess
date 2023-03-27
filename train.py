@@ -6,7 +6,7 @@ import torch.nn as nn
 from torch.utils.data import TensorDataset, DataLoader
 import sys
 os.chdir(sys.path[0])
-from models import cnn, resnet, res2net, resnext, sk_resnet, resnest, lstm, dilated_conv, depthwise_conv, vit, dcn, channel_attention, spatial_attention, swin
+from models import cnn, resnet, res2net, resnext, sk_resnet, resnest, lstm, dilated_conv, depthwise_conv, shufflenet, vit, dcn, channel_attention, spatial_attention, swin
 from Daily_and_Sports_Activities.dataproc import DASA
 from UniMiB_SHAR.dataproc import UNIMIB
 from PAMAP2.dataproc import PAMAP
@@ -67,6 +67,7 @@ if __name__ == '__main__':
         'sa': spatial_attention.SpatialAttentionNeuralNetwork,
         'dilation': dilated_conv.DilatedConv,
         'depthwise': depthwise_conv.DepthwiseConv,
+        'shufflenet': shufflenet.ShuffleNet,
         'dcn': dcn.DeformableConvolutionalNetwork,
         'vit': vit.VisionTransformer,
         'swin': swin.SwinTransformer
