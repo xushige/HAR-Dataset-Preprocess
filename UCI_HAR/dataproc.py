@@ -71,7 +71,8 @@ def UCI(dataset_dir='./UCI HAR Dataset', SAVE_PATH=os.path.abspath('../../HAR-da
         np.save(path + '/y_train.npy', Y_train)
         np.save(path + '/y_test.npy', Y_test)
         print('\n.npy数据【xtrain，xtest，ytrain，ytest】已经保存在【%s】目录下\n' % (SAVE_PATH))
-
+        build_npydataset_readme(SAVE_PATH)
+        
     return X_train, X_test, Y_train, Y_test
 
 if __name__ == '__main__':

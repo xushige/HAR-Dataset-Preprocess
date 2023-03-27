@@ -7,20 +7,16 @@ os.chdir(sys.path[0])
 sys.path.append('../')
 from utils import *
 '''
-PAMAP2 数据集下载地址
-http://archive.ics.uci.edu/ml/machine-learning-databases/00231/
-将PAMAP2_Dataset.zip中的Protocol文件夹放到该目录下即可运行
-
 WINDOW_SIZE=171 # int
-OVERLAP_RATE=0 # float in [0，1）
-SPLIT_RATE=(7,3) # tuple or list  
+OVERLAP_RATE=0.5 # float in [0，1）
+SPLIT_RATE= 留一法
 
 '''
 
-def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE=0, SPLIT_RATE=(7,3), VALIDATION_SUBJECT=None, Z_SCORE=True, SAVE_PATH=os.path.abspath('../../HAR-datasets')):
+def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE=0.5, SPLIT_RATE=(7,3), VALIDATION_SUBJECT='105', Z_SCORE=True, SAVE_PATH=os.path.abspath('../../HAR-datasets')):
     print("\n原数据分析：共12个活动，文件包含9个受试者收集的数据，在数据集的切分上可以选择平均切分，也可以选择某1个受试者的数据作为验证集（留一法）。\n\
-            如果用的是平均切分，所以val-acc会相对偏高，这里默认用平均切分\n")
-    print('预处理思路：提取有效列，重置活动label，遍历文件进行滑窗，缺值填充，标准化等方法\n')
+            如果用的是平均切分，所以val-acc会相对偏高，这里默认用留一法，将【subject 105】数据作为验证集\n")
+    print('预处理思路：提取有效列，重置活动label，数据降采样1/3，即100Hz -> 33.3Hz，进行滑窗，缺值填充，标准化等方法\n')
 
     # 下载数据集
     if not os.path.exists(dataset_dir):
@@ -30,8 +26,13 @@ def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE
             dir_path=dataset_dir.split('/')[0]
         )
 
-    assert VALIDATION_SUBJECT in ['101', '102', '103', '104', '105', '106', '107', '108', '109', None]
+    assert VALIDATION_SUBJECT in ['101', '102', '103', '104', '105', '106', '107', '108', '109', ''] # 如果是留一法，通过 VALIDATION_SUBJECT 选择一个subject数据作为验证集
     
+    if VALIDATION_SUBJECT:
+        print('\n留一法取验证集，验证集为：Subject_%s\n' % (VALIDATION_SUBJECT))
+    else:
+        print('\n平均切分法取验证集，(训练: 验证) == (%d: %d)\n' % (SPLIT_RATE[0], SPLIT_RATE[1]))
+
     xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data
     category_dict = dict(zip([*range(12)], [1, 2, 3, 4, 5, 6, 7, 12, 13, 16, 17, 24])) #12分类所对应的实际label，对应readme.pdf
 
@@ -73,10 +74,11 @@ def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE
     os.chdir(dir)
     for file in filelist:
         content = pd.read_csv(file, sep=' ', usecols=[1]+[*range(4,16)]+[*range(21,33)]+[*range(38,50)]) # 取出有效数据列, 第2列为label，5-16，22-33，39-50都是可使用的传感数据
-        content = content.dropna(axis=0).to_numpy() # 删除含有nan的行
+        content = content.interpolate(method='linear', limit_direction='forward', axis=0).to_numpy() # 线性插值填充nan
         
-        data = content[:, 1:] # 数据 （n, 36)
-        label = content[:, 0] # 标签
+        # 降采样 1/3， 100Hz -> 33.3Hz
+        data = content[::3, 1:] # 数据 （n, 36)
+        label = content[::3, 0] # 标签
 
         data = data[label!=0] # 去除0类
         label = label[label!=0]
@@ -108,7 +110,8 @@ def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE
         np.save(path + '/y_train.npy', ytrain)
         np.save(path + '/y_test.npy', ytest)
         print('\n.npy数据【xtrain，xtest，ytrain，ytest】已经保存在【%s】目录下\n' % (SAVE_PATH))
-
+        build_npydataset_readme(SAVE_PATH)
+        
     return xtrain, xtest, ytrain, ytest
 
 if __name__ == '__main__':

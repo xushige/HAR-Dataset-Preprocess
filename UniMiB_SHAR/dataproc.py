@@ -16,11 +16,11 @@ def UNIMIB(dataset_dir='./UniMiB-SHAR/data', SPLIT_RATE=(7,3), SAVE_PATH=os.path
             观察数据分布可以发现unimib数据集的的数据是将xyz轴数据合并在了一起，length==453，表示前151是x轴数据，151-302为y轴数据，302-453为z轴数据\n")
     print("预处理思路：直接读取数据，匹配标签第一维，按比例进行训练集验证集切分\n")
 
-    # 下载数据集[由于unimib数据集无法直接访问下载，这里我把unimib数据集上传到github进行访问clone]
+    # 下载数据集[由于unimib数据集无法直接访问下载，这里我把unimib数据集上传到gitcdoe进行访问clone]
     if not os.path.exists(dataset_dir):
         download_dataset(
             dataset_name='UniMiB-SHAR',
-            file_url='https://github.com/xushige/UniMiB-SHAR.git', 
+            file_url='https://gitcode.net/m0_52161961/UniMiB-SHAR.git', 
             dir_path=dataset_dir.split('/')[0]
         )
     if not os.path.exists(dataset_dir):
@@ -69,7 +69,8 @@ def UNIMIB(dataset_dir='./UniMiB-SHAR/data', SPLIT_RATE=(7,3), SAVE_PATH=os.path
         np.save(path + '/y_train.npy', train_label)
         np.save(path + '/y_test.npy', test_label)
         print('\n.npy数据【xtrain，xtest，ytrain，ytest】已经保存在【%s】目录下\n' % (SAVE_PATH))
-
+        build_npydataset_readme(SAVE_PATH)
+        
     return train_data, test_data, train_label, test_label
 
 if __name__ == '__main__':

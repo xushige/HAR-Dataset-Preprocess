@@ -8,14 +8,9 @@ os.chdir(sys.path[0])
 sys.path.append('../')
 from utils import *
 '''
-OPPORTUNITY 数据集下载地址
-http://archive.ics.uci.edu/ml/machine-learning-databases/00226/
-将名为 “dataset” 的文件夹放到该目录下即可运行
-
 WINDOW_SIZE=30 # int
 OVERLAP_RATE=0.5 # float in [0，1）
 SPLIT_RATE=-- # tuple or list  
-
 '''
 
 def OPPO(dataset_dir='./OpportunityUCIDataset/dataset', WINDOW_SIZE=30, OVERLAP_RATE=0.5, SAVE_PATH=os.path.abspath('../../HAR-datasets')):
@@ -130,6 +125,7 @@ def OPPO(dataset_dir='./OpportunityUCIDataset/dataset', WINDOW_SIZE=30, OVERLAP_
         np.save(path + '/y_train.npy', ytrain)
         np.save(path + '/y_test.npy', ytest)
         print('\n.npy数据【xtrain，xtest，ytrain，ytest】已经保存在【%s】目录下\n' % (SAVE_PATH))
+        build_npydataset_readme(SAVE_PATH)
         
     return xtrain, xtest, ytrain, ytest
 
