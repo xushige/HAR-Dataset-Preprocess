@@ -19,7 +19,7 @@ pip3 install -r requirements.txt
 python3 train.py --dataset wisdm --model vit
 ```
 #### --dataset choose from 【'uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo'】
-#### --model choose from 【'cnn', 'resnet', 'res2net', 'resnext', 'lstm', 'ca', 'sa', 'dcn', 'vit', 'swin'】 
+#### --model choose from 【'cnn', 'resnet', 'res2net', 'resnext', 'sknet', 'resnest', 'lstm', 'ca', 'sa', 'dilation', 'depthwise', 'dcn', 'vit', 'swin'】 
 <details open>
 <summary>Supported Models</summary>
 
