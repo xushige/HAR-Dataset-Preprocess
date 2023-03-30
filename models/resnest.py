@@ -3,7 +3,7 @@ import torch
 
 '''ResNeSt: 结合 ResNext 与 SkNet 思想, 建议先看懂 ResNext 与 SKResNet'''
 class ResNextBlock(nn.Module):
-    def __init__(self, inchannel, outchannel, kernel_size=9, stride=1, groups=16):
+    def __init__(self, inchannel, outchannel, kernel_size=9, stride=1, groups=2):
         super().__init__()
         if inchannel != 1:
             assert inchannel % groups == 0 # inchannel必须整除groups
@@ -32,7 +32,7 @@ class ResNextBlock(nn.Module):
         return out
 
 class SKBlock(nn.Module):
-    def __init__(self, inchannel, outchannel, stride=1, groups=16):
+    def __init__(self, inchannel, outchannel, stride=1, groups=2):
         super().__init__()
         # SK 选择核思想 这里默认选了(3,1), (5,1), (7,1), (9,1) 四种并行尺度进行选择
         self.kernel1 = ResNextBlock(inchannel=inchannel, outchannel=outchannel, kernel_size=3, stride=stride, groups=groups) # 每一个尺度不是单纯的Conv2D, 采用了ResNext的分组卷积思想
@@ -63,7 +63,7 @@ class SKBlock(nn.Module):
         return out
 
 class Block(nn.Module):
-    def __init__(self, inchannel, outchannel, stride=1, groups=16):
+    def __init__(self, inchannel, outchannel, stride=1, groups=2):
         super().__init__()
         self.block = SKBlock(inchannel=inchannel, outchannel=outchannel, stride=stride, groups=groups)
         self.short = nn.Sequential()
@@ -81,7 +81,7 @@ class Block(nn.Module):
         return nn.ReLU()(out)
     
 class ResNeSt(nn.Module):
-    def __init__(self, train_shape, category, groups=4):
+    def __init__(self, train_shape, category, groups=2):
         super().__init__()
         '''
             train_shape: 总体训练样本的shape

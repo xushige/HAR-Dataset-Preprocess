@@ -3,7 +3,7 @@ import torch
 
 '''ResNext: 分组卷积'''
 class ResNextBlock(nn.Module):
-    def __init__(self, inchannel, outchannel, stride, groups=16):
+    def __init__(self, inchannel, outchannel, stride, groups=4):
         super().__init__()
         if inchannel != 1:
             assert inchannel % groups == 0 # inchannel必须整除groups
@@ -32,7 +32,7 @@ class ResNextBlock(nn.Module):
         return out
 
 class Block(nn.Module):
-    def __init__(self, inchannel, outchannel, stride=1, groups=16):
+    def __init__(self, inchannel, outchannel, stride=1, groups=4):
         super().__init__()
         self.block = ResNextBlock(inchannel=inchannel, outchannel=outchannel, stride=stride, groups=groups)
         self.short = nn.Sequential()
@@ -50,7 +50,7 @@ class Block(nn.Module):
         return nn.ReLU()(out)
     
 class ResNext(nn.Module):
-    def __init__(self, train_shape, category, groups=8):
+    def __init__(self, train_shape, category, groups=4):
         super().__init__()
         '''
             train_shape: 总体训练样本的shape

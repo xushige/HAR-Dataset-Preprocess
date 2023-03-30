@@ -172,24 +172,20 @@ class DeformableConvolutionalNetwork(nn.Module):
             category: 类别数
         '''
         self.layer = nn.Sequential(
-            DeformConv2d(1, 64, (9, 1), (2, 1), (4, 0)),
+            DeformConv2d(1, 64, (9, 1), (2, 1), (4, 0), modulation=True),
             nn.BatchNorm2d(64),
             nn.ReLU(),
 
-            DeformConv2d(64, 128, (9, 1), (2, 1), (4, 0)),
+            DeformConv2d(64, 128, (9, 1), (2, 1), (4, 0), modulation=True),
             nn.BatchNorm2d(128),
             nn.ReLU(),
 
-            DeformConv2d(128, 256, (9, 1), (2, 1), (4, 0)),
+            DeformConv2d(128, 256, (9, 1), (2, 1), (4, 0), modulation=True),
             nn.BatchNorm2d(256),
-            nn.ReLU(),
-
-            DeformConv2d(256, 512, (9, 1), (2, 1), (4, 0)),
-            nn.BatchNorm2d(512),
             nn.ReLU()
         )
         self.ada_pool = nn.AdaptiveAvgPool2d((1, train_shape[-1]))
-        self.fc = nn.Linear(512*train_shape[-1], category)
+        self.fc = nn.Linear(256*train_shape[-1], category)
 
     def forward(self, x):
         '''
