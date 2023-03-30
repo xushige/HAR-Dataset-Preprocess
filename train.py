@@ -75,18 +75,19 @@ if __name__ == '__main__':
     args = parse_args()
     args.savepath = os.path.abspath(args.savepath) if args.savepath else '' # 如果有npy保存路径就转换为绝对路径
 
-    GPU = torch.cuda.is_available()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # GPU or CPU【若有多块GPU需要指定0号GPU，则可以将“cuda”改为“cuda:0”】
     BS = args.batch
     EP = args.epoch
     LR = args.lr
     
     print('\n==================================================【HAR 训练任务开始】===================================================\n')
-    print('Dataset Name:【%s】\nModel:【%s】\nNumpy array save path:【%s】\nEpoch:【%d】\nBatch Size:【%d】\nInitial Learning Rate:【%f】' % (args.dataset, args.model, args.savepath, args.epoch, args.batch, args.lr))
+    print('Dataset Name:【%s】\nModel:【%s】\nNumpy array save path:【%s】\nEpoch:【%d】\nBatch Size:【%d】\nInitial Learning Rate:【%f】\nDevice: 【%s】' % (args.dataset, args.model, args.savepath, args.epoch, args.batch, args.lr, device))
         
     '''数据集加载'''
     print('\n==================================================【数据集预处理】===================================================\n')
     dataset_name = dir_dict[args.dataset].split('/')[0]
     dataset_saved_path = os.path.join(args.savepath, dataset_name)
+
     # 获取训练与测试【数据，标签】
     if os.path.exists(dataset_saved_path): # npy数据集已存在则直接读取
         print('\n【%s】数据集在【%s】目录下已存在npy文件，直接读取...\n'%(dataset_name, dataset_saved_path))
@@ -94,7 +95,7 @@ if __name__ == '__main__':
     else: # npy数据集不存在则进行数据预处理获取
         train_data, test_data, train_label, test_label = dataset_dict[args.dataset](dataset_dir=dir_dict[args.dataset], SAVE_PATH=args.savepath)
 
-    '''数据准备'''
+    '''npy数据tensor化'''
     X_train = torch.from_numpy(train_data).float().unsqueeze(1)
     X_test = torch.from_numpy(test_data).float().unsqueeze(1)
     Y_train = torch.from_numpy(train_label).long()
@@ -104,13 +105,10 @@ if __name__ == '__main__':
     print('\n==================================================  【张量转换】  ===================================================\n')
     print('x_train_tensor shape: %s\nx_test_tensor shape: %s'%(X_train.shape, X_test.shape))
     print('Category num: %d'%(category))
-    print('If GPU: 【%s】'%(GPU))
 
     '''模型加载'''
     print('\n==================================================  【模型加载】  ===================================================\n')
-    net = model_dict[args.model](X_train.shape, category)
-    if GPU:
-        net.cuda()
+    net = model_dict[args.model](X_train.shape, category).to(device)
     print(net)
 
     train_data = TensorDataset(X_train, Y_train)
@@ -127,8 +125,7 @@ if __name__ == '__main__':
     for i in range(EP):
         net.train()
         for data, label in train_loader:
-            if GPU:
-                data, label = data.cuda(), label.cuda()
+            data, label = data.to(device), label.to(device)
             out = net(data)
             loss = loss_fn(out, label)
 
@@ -139,8 +136,7 @@ if __name__ == '__main__':
         net.eval()
         cor = 0
         for data, label in test_loader:
-            if GPU:
-                data, label = data.cuda(), label.cuda()
+            data, label = data.to(device), label.to(device)
             out = net(data)
             _, pre = torch.max(out, 1)
             cor += (pre == label).sum()
