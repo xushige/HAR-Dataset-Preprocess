@@ -32,7 +32,7 @@ def parse_args():
     parser.add_argument('--savepath', help='the dir-path of the .npy array for saving', default='../HAR-datasets') # 如无需保存npy形式数据集，将default置空字符串
     parser.add_argument('--batch', type=int, help='batch_size', default=128)
     parser.add_argument('--epoch', type=int, help='epoch', default=100)
-    parser.add_argument('--lr', type=float, help='learning_rate', default=0.001)
+    parser.add_argument('--lr', type=float, help='learning_rate', default=0.0005)
     args = parser.parse_args()
     return args
 

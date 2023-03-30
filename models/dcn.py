@@ -168,31 +168,36 @@ class DeformableConvolutionalNetwork(nn.Module):
     def __init__(self, train_shape, category):
         super(DeformableConvolutionalNetwork, self).__init__()
         '''
-            train_shape: 总体训练样本的shape
+            train_shape: 总体训练样本的shape【DCN自适应调整卷积形状，不需要固定按模态轴进行条形卷积，因此这里没有用到train_shape来设定adapool与fc】
             category: 类别数
         '''
         self.layer = nn.Sequential(
-            DeformConv2d(1, 64, (9, 1), (2, 1), (4, 0), modulation=True),
+            DeformConv2d(1, 64, 3, 2, 1, modulation=True),
             nn.BatchNorm2d(64),
             nn.ReLU(),
 
-            DeformConv2d(64, 128, (9, 1), (2, 1), (4, 0), modulation=True),
+            DeformConv2d(64, 128, 3, 2, 1, modulation=True),
             nn.BatchNorm2d(128),
             nn.ReLU(),
 
-            DeformConv2d(128, 256, (9, 1), (2, 1), (4, 0), modulation=True),
+            DeformConv2d(128, 256, 3, 2, 1, modulation=True),
             nn.BatchNorm2d(256),
+            nn.ReLU(),
+
+            DeformConv2d(256, 512, 3, 2, 1, modulation=True),
+            nn.BatchNorm2d(512),
             nn.ReLU()
         )
-        self.ada_pool = nn.AdaptiveAvgPool2d((1, train_shape[-1]))
-        self.fc = nn.Linear(256*train_shape[-1], category)
+        self.ada_pool = nn.AdaptiveAvgPool2d((1, 4))
+        self.fc = nn.Linear(512*4, category)
 
     def forward(self, x):
         '''
             x.shape: [b, c, series, modal]
         '''
+        x = x.permute(0, 1, 3, 2) # [b, c, modal, series]
         x = self.layer(x)
-        x = self.ada_pool(x)
+        x = self.ada_pool(x) # [b, c, 1, 4]
         x = x.view(x.size(0), -1)
         x = self.fc(x)
         return x
