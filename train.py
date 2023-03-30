@@ -4,6 +4,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 from torch.utils.data import TensorDataset, DataLoader
+from torch.cuda.amp import GradScaler, autocast
 import sys
 os.chdir(sys.path[0])
 from models import cnn, resnet, res2net, resnext, sk_resnet, resnest, lstm, dilated_conv, depthwise_conv, shufflenet, vit, dcn, channel_attention, spatial_attention, swin
@@ -119,6 +120,7 @@ if __name__ == '__main__':
     optimizer = torch.optim.AdamW(net.parameters(), lr=LR, weight_decay=0.001)
     lr_sch = torch.optim.lr_scheduler.StepLR(optimizer, EP//3, 0.5)
     loss_fn = nn.CrossEntropyLoss()
+    scaler = GradScaler() # 在训练最开始之前实例化一个GradScaler对象
 
     '''训练'''
     print('\n==================================================   【训练】   ===================================================\n')
@@ -126,18 +128,22 @@ if __name__ == '__main__':
         net.train()
         for data, label in train_loader:
             data, label = data.to(device), label.to(device)
-            out = net(data)
-            loss = loss_fn(out, label)
+            # 前向过程(model + loss)开启 autocast，混合精度训练
+            with autocast():
+                out = net(data)
+                loss = loss_fn(out, label)
 
-            optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
+            optimizer.zero_grad() # 梯度清零
+            scaler.scale(loss).backward() # 梯度放大
+            scaler.step(optimizer) # unscale梯度值
+            scaler.update() 
 
         net.eval()
         cor = 0
         for data, label in test_loader:
             data, label = data.to(device), label.to(device)
-            out = net(data)
+            with autocast():
+                out = net(data)
             _, pre = torch.max(out, 1)
             cor += (pre == label).sum()
         acc = cor.item()/len(Y_test)
