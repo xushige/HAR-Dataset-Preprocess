@@ -89,7 +89,7 @@ if __name__ == '__main__':
     dataset_name = dir_dict[args.dataset].split('/')[0]
     dataset_saved_path = os.path.join(args.savepath, dataset_name)
 
-    # 获取训练与测试【数据，标签】
+    '''获取训练与测试【数据，标签】'''
     if os.path.exists(dataset_saved_path): # npy数据集已存在则直接读取
         print('\n【%s】数据集在【%s】目录下已存在npy文件，直接读取...\n'%(dataset_name, dataset_saved_path))
         train_data, test_data, train_label, test_label = np.load('%s/x_train.npy'%(dataset_saved_path)), np.load('%s/x_test.npy'%(dataset_saved_path)), np.load('%s/y_train.npy'%(dataset_saved_path)), np.load('%s/y_test.npy'%(dataset_saved_path))
