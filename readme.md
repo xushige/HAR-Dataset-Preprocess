@@ -1,7 +1,7 @@
 ## Human Activity Recogniton (HAR) 公开数据集预处理与网络搭建
 ### 下载工程并且安装依赖
 ```
-git clone https://github.com/xushige/HAR-Dataset-Preprocess.git --depth 1
+git clone https://gitee.com/xushige/HAR-Dataset-Preprocess.git --depth 1
 cd HAR-Dataset-Prerocess
 pip3 install -r requirements.txt
 ```
@@ -27,21 +27,21 @@ python3 train.py --dataset wisdm --model vit
 <details open>
 <summary>支持模型</summary>
 
-- [x] ['cnn': cnn.CNN](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/cnn.py)
-- [x] ['resnet': resnet.ResNet](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/resnet.py)
-- [x] ['res2net': res2net.Res2Net](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/res2net.py)
-- [x] ['resnext': resnext.ResNext](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/resnext.py)
-- [x] ['sknet': sk_resnet.SKResNet](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/sk_resnet.py)
-- [x] ['resnest': resnest.ResNeSt](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/resnest.py)
-- [x] ['lstm': lstm.LSTM](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/lstm.py)
-- [x] ['ca': channel_attention.ChannelAttentionNeuralNetwork](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/channel_attention.py)
-- [x] ['sa': spatial_attention.SpatialAttentionNeuralNetwork](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/spatial_attention.py)
-- [x] ['dilation': dilated_conv.DilatedConv](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/dilated_conv.py)
-- [x] ['depthwise': depthwise_conv.DepthwiseConv](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/depthwise_conv.py)
-- [x] ['shufflenet': shufflenet.ShuffleNet](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/shufflenet.py)
-- [x] ['dcn': dcn.DeformableConvolutionalNetwork](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/dcn.py)
-- [x] ['vit': vit.VisionTransformer](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/vit.py)
-- [x] ['swin': swin.SwinTransformer](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/swin.py)
+- [x] ['cnn': cnn.CNN](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/cnn.py)
+- [x] ['resnet': resnet.ResNet](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/resnet.py)
+- [x] ['res2net': res2net.Res2Net](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/res2net.py)
+- [x] ['resnext': resnext.ResNext](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/resnext.py)
+- [x] ['sknet': sk_resnet.SKResNet](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/sk_resnet.py)
+- [x] ['resnest': resnest.ResNeSt](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/resnest.py)
+- [x] ['lstm': lstm.LSTM](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/lstm.py)
+- [x] ['ca': channel_attention.ChannelAttentionNeuralNetwork](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/channel_attention.py)
+- [x] ['sa': spatial_attention.SpatialAttentionNeuralNetwork](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/spatial_attention.py)
+- [x] ['dilation': dilated_conv.DilatedConv](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/dilated_conv.py)
+- [x] ['depthwise': depthwise_conv.DepthwiseConv](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/depthwise_conv.py)
+- [x] ['shufflenet': shufflenet.ShuffleNet](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/shufflenet.py)
+- [x] ['dcn': dcn.DeformableConvolutionalNetwork](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/dcn.py)
+- [x] ['vit': vit.VisionTransformer](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/vit.py)
+- [x] ['swin': swin.SwinTransformer](https://gitee.com/xushige/HAR-Dataset-Preprocess/blob/main/models/swin.py)
 
 </details>
 

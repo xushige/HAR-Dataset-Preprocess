@@ -20,7 +20,7 @@ def UNIMIB(dataset_dir='./UniMiB-SHAR/data', SPLIT_RATE=(7,3), SAVE_PATH=os.path
     if not os.path.exists(dataset_dir):
         download_dataset(
             dataset_name='UniMiB-SHAR',
-            file_url='https://gitcode.net/m0_52161961/UniMiB-SHAR.git', 
+            file_url='https://gitee.com/xushige/UniMiB-SHAR.git', 
             dir_path=dataset_dir.split('/')[0]
         )
     if not os.path.exists(dataset_dir):
