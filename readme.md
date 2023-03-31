@@ -1,7 +1,10 @@
 ## Human Activity Recogniton (HAR) 公开数据集预处理与网络搭建
-### 下载工程并且安装依赖
+### 下载工程
 ```
 git clone https://gitee.com/xushige/HAR-Dataset-Preprocess.git --depth 1
+```
+### 安装库依赖
+```
 cd HAR-Dataset-Prerocess
 pip3 install -r requirements.txt
 ```
