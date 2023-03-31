@@ -1,17 +1,4 @@
 ## Human Activity Recogniton (HAR) 公开数据集预处理与网络搭建
-### 如有问题或者优化之处，欢迎留言交流
-<summary>包含数据集</summary>
-
-- [x] [Daily-and-Sports-Activities](http://archive.ics.uci.edu/ml/datasets/Daily+and+Sports+Activities)
-- [x] [PAMAP2](http://archive.ics.uci.edu/ml/datasets/PAMAP2+Physical+Activity+Monitoring)
-- [x] [UCI-HAR](https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones)
-- [x] [USC-HAD](https://sipi.usc.edu/had/)
-- [x] [UniMiB-SHAR](http://www.sal.disco.unimib.it/technologies/unimib-shar/)
-- [x] [WISDM](https://www.cis.fordham.edu/wisdm/dataset.php)
-- [x] [OPPORTUNITY](http://archive.ics.uci.edu/ml/datasets/OPPORTUNITY+Activity+Recognition)
-
-</details>
-
 ### 下载工程并且安装依赖
 ```
 git clone https://github.com/xushige/HAR-Dataset-Preprocess.git --depth 1
@@ -24,6 +11,19 @@ python3 train.py --dataset wisdm --model vit
 ```
 #### --dataset choose from 【'uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo'】
 #### --model choose from 【'cnn', 'resnet', 'res2net', 'resnext', 'sknet', 'resnest', 'lstm', 'ca', 'sa', 'dilation', 'depthwise', 'shufflenet', 'dcn', 'vit', 'swin'】 
+<details open>
+<summary>包含数据集</summary>
+
+- [x] [Daily-and-Sports-Activities](http://archive.ics.uci.edu/ml/datasets/Daily+and+Sports+Activities)
+- [x] [PAMAP2](http://archive.ics.uci.edu/ml/datasets/PAMAP2+Physical+Activity+Monitoring)
+- [x] [UCI-HAR](https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones)
+- [x] [USC-HAD](https://sipi.usc.edu/had/)
+- [x] [UniMiB-SHAR](http://www.sal.disco.unimib.it/technologies/unimib-shar/)
+- [x] [WISDM](https://www.cis.fordham.edu/wisdm/dataset.php)
+- [x] [OPPORTUNITY](http://archive.ics.uci.edu/ml/datasets/OPPORTUNITY+Activity+Recognition)
+
+</details>
+
 <details open>
 <summary>支持模型</summary>
 
