@@ -22,7 +22,7 @@ def parse_args():
         '--dataset', 
         help='select dataset', 
         choices=dataset_dict.keys(),
-        default='wisdm'
+        default='unimib'
         )
     parser.add_argument(
         '--model', 
