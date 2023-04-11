@@ -40,9 +40,9 @@ def build_npydataset_readme(path):
     '''
         构建数据集readme
     '''
-    datasets = os.listdir(path)
-    curdir = os.curdir
-    os.chdir(path)
+    datasets = os.listdir(path) 
+    curdir = os.curdir # 记录当前地址
+    os.chdir(path) # 进入所有npy数据集根目录
     with open('readme.md', 'w') as w:
         for dataset in datasets:
             if not os.path.isdir(dataset):
@@ -58,4 +58,4 @@ def build_npydataset_readme(path):
                 new_d[i] = d[i]
             log = '\n===============================================================\n%s\n   x_train shape: %s\n   x_test shape: %s\n   y_train shape: %s\n   y_test shape: %s\n\n共【%d】个类别\ny_test中每个类别的样本数为 %s\n' % (dataset, x_train.shape, x_test.shape, y_train.shape, y_test.shape, category, new_d)
             w.write(log)
-    os.chdir(curdir)
+    os.chdir(curdir) # 返回原始地址
