@@ -57,6 +57,5 @@ def build_npydataset_readme(path):
             for i in range(category):
                 new_d[i] = d[i]
             log = '\n===============================================================\n%s\n   x_train shape: %s\n   x_test shape: %s\n   y_train shape: %s\n   y_test shape: %s\n\n共【%d】个类别\ny_test中每个类别的样本数为 %s\n' % (dataset, x_train.shape, x_test.shape, y_train.shape, y_test.shape, category, new_d)
-            print(log)
             w.write(log)
     os.chdir(curdir)
