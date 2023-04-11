@@ -13,13 +13,13 @@ http://archive.ics.uci.edu/ml/machine-learning-databases/00231/
 
 WINDOW_SIZE=171 # int
 OVERLAP_RATE=0 # float in [0，1）
-SPLIT_RATE=(7,3) # tuple or list  
+SPLIT_RATE= 留一法
 
 '''
 
-def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE=0, SPLIT_RATE=(7,3), VALIDATION_SUBJECT=None, Z_SCORE=True, SAVE_PATH=os.path.abspath('../../HAR-datasets')):
+def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE=0, SPLIT_RATE=(7,3), VALIDATION_SUBJECT='105', Z_SCORE=True, SAVE_PATH=os.path.abspath('../../HAR-datasets')):
     print("\n原数据分析：共12个活动，文件包含9个受试者收集的数据，在数据集的切分上可以选择平均切分，也可以选择某1个受试者的数据作为验证集（留一法）。\n\
-            如果用的是平均切分，所以val-acc会相对偏高，这里默认用平均切分\n")
+            如果用的是平均切分，所以val-acc会相对偏高，这里默认用留一法，将【subject 105】数据作为验证集\n")
     print('预处理思路：提取有效列，重置活动label，遍历文件进行滑窗，缺值填充，标准化等方法\n')
 
     # 下载数据集
@@ -30,8 +30,13 @@ def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE
             dir_path=dataset_dir.split('/')[0]
         )
 
-    assert VALIDATION_SUBJECT in ['101', '102', '103', '104', '105', '106', '107', '108', '109', None]
+    assert VALIDATION_SUBJECT in ['101', '102', '103', '104', '105', '106', '107', '108', '109', ''] # 如果是留一法，通过 VALIDATION_SUBJECT 选择一个subject数据作为验证集
     
+    if VALIDATION_SUBJECT:
+        print('\n留一法取验证集，验证集为：Subject_%s\n' % (VALIDATION_SUBJECT))
+    else:
+        print('\n平均切分法取验证集，(训练: 验证) == (%d: %d)\n' % (SPLIT_RATE[0], SPLIT_RATE[1]))
+
     xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data
     category_dict = dict(zip([*range(12)], [1, 2, 3, 4, 5, 6, 7, 12, 13, 16, 17, 24])) #12分类所对应的实际label，对应readme.pdf
 
@@ -108,7 +113,8 @@ def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE
         np.save(path + '/y_train.npy', ytrain)
         np.save(path + '/y_test.npy', ytest)
         print('\n.npy数据【xtrain，xtest，ytrain，ytest】已经保存在【%s】目录下\n' % (SAVE_PATH))
-
+        build_npydataset_readme(SAVE_PATH)
+        
     return xtrain, xtest, ytrain, ytest
 
 if __name__ == '__main__':

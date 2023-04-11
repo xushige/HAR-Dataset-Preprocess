@@ -95,7 +95,8 @@ def WISDM(dataset_dir='./WISDM_ar_v1.1', WINDOW_SIZE=200, OVERLAP_RATE=0.5, SPLI
         np.save(path + '/y_train.npy', ytrain)
         np.save(path + '/y_test.npy', ytest)
         print('\n.npy数据【xtrain，xtest，ytrain，ytest】已经保存在【%s】目录下\n' % (SAVE_PATH))
-
+        build_npydataset_readme(SAVE_PATH)
+        
     return xtrain, xtest, ytrain, ytest
 
 if __name__ == '__main__':

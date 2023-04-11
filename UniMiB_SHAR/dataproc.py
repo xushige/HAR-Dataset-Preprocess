@@ -69,7 +69,8 @@ def UNIMIB(dataset_dir='./UniMiB-SHAR/data', SPLIT_RATE=(7,3), SAVE_PATH=os.path
         np.save(path + '/y_train.npy', train_label)
         np.save(path + '/y_test.npy', test_label)
         print('\n.npy数据【xtrain，xtest，ytrain，ytest】已经保存在【%s】目录下\n' % (SAVE_PATH))
-
+        build_npydataset_readme(SAVE_PATH)
+        
     return train_data, test_data, train_label, test_label
 
 if __name__ == '__main__':

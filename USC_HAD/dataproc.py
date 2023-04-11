@@ -95,7 +95,8 @@ def USC(dataset_dir='./USC-HAD', WINDOW_SIZE=512, OVERLAP_RATE=0.5, SPLIT_RATE=(
             np.save(path + '/y_train.npy', ytrain)
             np.save(path + '/y_test.npy', ytest)
             print('\n.npy数据【xtrain，xtest，ytrain，ytest】已经保存在【%s】目录下\n' % (SAVE_PATH))
-
+            build_npydataset_readme(SAVE_PATH)
+        
         return xtrain, xtest, ytrain, ytest
 
     return split_data(
