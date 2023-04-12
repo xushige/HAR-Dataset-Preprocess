@@ -10,7 +10,7 @@ pip3 install -r requirements.txt
 ```
 ### 模型训练代码运行样例【或者直接编译器运行train.py文件，在文件中修改参数:--dataset, --model】
 ```
-python3 train.py --dataset wisdm --model vit
+python3 train.py --dataset unimib --model vit
 ```
 #### --dataset choose from 【'uci', 'unimib', 'usc', 'pamap', 'wisdm', 'dasa', 'oppo'】
 #### --model choose from 【'cnn', 'resnet', 'res2net', 'resnext', 'sknet', 'resnest', 'lstm', 'ca', 'sa', 'dilation', 'depthwise', 'shufflenet', 'dcn', 'vit', 'swin'】 
