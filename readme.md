@@ -1,7 +1,7 @@
 ## Human Activity Recogniton (HAR) 公开数据集预处理与网络搭建
 ### 下载工程
 ```
-git clone https://github.com/xushige/HAR-Dataset-Preprocess.git --depth 1
+git clone https://github.com/xushige/HAR-Dataset-Preprocess.git
 ```
 ### 安装库依赖
 ```
@@ -28,7 +28,7 @@ python3 train.py --dataset wisdm --model vit
 </details>
 
 <details open>
-<summary>支持模型</summary>
+<summary>包含模型</summary>
 
 - [x] ['cnn': cnn.CNN](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/cnn.py)
 - [x] ['resnet': resnet.ResNet](https://github.com/xushige/HAR-Dataset-Preprocess/blob/main/models/resnet.py)
