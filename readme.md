@@ -1,4 +1,4 @@
-## Human Activity Recogniton (HAR) 公开数据集预处理与网络搭建
+# Human Activity Recogniton (HAR) 公开数据集预处理与网络搭建
 ### 下载工程
 ```
 git clone https://github.com/xushige/HAR-Dataset-Preprocess.git
