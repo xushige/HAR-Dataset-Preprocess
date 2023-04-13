@@ -7,10 +7,6 @@ os.chdir(sys.path[0])
 sys.path.append('../')
 from utils import *
 '''
-PAMAP2 数据集下载地址
-http://archive.ics.uci.edu/ml/machine-learning-databases/00231/
-将PAMAP2_Dataset.zip中的Protocol文件夹放到该目录下即可运行
-
 WINDOW_SIZE=171 # int
 OVERLAP_RATE=0 # float in [0，1）
 SPLIT_RATE= 留一法
