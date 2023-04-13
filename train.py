@@ -137,7 +137,7 @@ if __name__ == '__main__':
             scaler.scale(loss).backward() # 梯度放大
             scaler.step(optimizer) # unscale梯度值
             scaler.update() 
-
+        lr_sch.step()
         net.eval()
         cor = 0
         for data, label in test_loader:
