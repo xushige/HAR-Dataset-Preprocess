@@ -5,22 +5,26 @@ os.chdir(sys.path[0])
 sys.path.append('../')
 from utils import *
 '''
-WINDOW_SIZE=128 # int
-OVERLAP_RATE=0.5 # float in [0，1）
-SPLIT_RATE=-- # tuple or list  
+WINDOW_SIZE = 128 # int
+OVERLAP_RATE = 0.5 # float in [0，1）
+SPLIT_RATE = None # 原始数据已经分好  
 '''
 
 def UCI(dataset_dir='./UCI HAR Dataset', SAVE_PATH=os.path.abspath('../../HAR-datasets')):
+    '''
+        dataset_dir: 源数据目录
+        SAVE_PATH: 预处理后npy数据保存目录
+    '''
+    
     print("\n原数据分析：原数据已经指定比例切分好，窗口大小128，重叠率50%\n")
     print("预处理思路：读取数据，txt转numpy array\n")
 
     # 下载数据集
-    if not os.path.exists(dataset_dir):
-        download_dataset(
-            dataset_name='UCI-HAR',
-            file_url='https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip',
-            dir_path=dataset_dir.split('/')[0]
-        )
+    download_dataset(
+        dataset_name='UCI-HAR',
+        file_url='https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip',
+        dataset_dir=dataset_dir
+    )
         
     dataset = dataset_dir
 

@@ -6,64 +6,61 @@ os.chdir(sys.path[0])
 sys.path.append('../')
 from utils import *
 '''
-WINDOW_SIZE=125 # int
-OVERLAP_RATE=0.4 # float in [0，1）
-SPLIT_RATE=None # "p7,p8" as the validation data
+WINDOW_SIZE = 125 # int
+OVERLAP_RATE = 0.4 # float in [0，1）
+SPLIT_RATE = None # 【p7,p8】 as the validation data
 '''
 
-def DASA(dataset_dir='./data', WINDOW_SIZE=125, OVERLAP_RATE=0.4, Z_SCORE=True, SAVE_PATH=os.path.abspath('../../HAR-datasets')):
+def DASA(dataset_dir='./data', WINDOW_SIZE=125, OVERLAP_RATE=0.4, VALIDATION_SUBJECTS={7, 8}, Z_SCORE=True, SAVE_PATH=os.path.abspath('../../HAR-datasets')):
+    '''
+        dataset_dir: 源数据目录
+        WINDOW_SIZE: 滑窗大小
+        OVERLAP_RATE: 滑窗重叠率
+        VALIDATION_SUBJECTS: 验证集所选取的Subjects
+        Z_SCORE: 标准化
+        SAVE_PATH: 预处理后npy数据保存目录
+    '''
+    
     print('\n原数据分析：原始文件共19个活动，每个活动都由8个受试者进行信号采集，每个受试者在每一类上采集5min的信号数据，采样频率25hz（每个txt是 125*45 的数据，包含5s时间长度，共60个txt）\n')
     print('预处理思路：数据集网站的介绍中说到60个txt是有5min连续数据分割而来,因此某一类别a下同一个受试者p的60个txt数据是时序连续的。\n\
-            所以可以将a()p()下的所有txt数据进行时序维度拼接，选择窗口大小为125，重叠率为20%进行滑窗重采样。p7p8受试者的数据作为验证集。\n')
+            所以可以将a()p()下的所有txt数据进行时序维度拼接，选择窗口大小为125，重叠率为20%进行滑窗重采样。切分数据集思路可以采取留一法，选取n个受试者数据作为验证集。\n')
     
-    # 下载数据集
-    if not os.path.exists(dataset_dir):
-        download_dataset(
-            dataset_name='Daily_and_Sports_Activities',
-            file_url='http://archive.ics.uci.edu/ml/machine-learning-databases/00256/data.zip',
-            dir_path=dataset_dir.split('/')[0]
-        )
-        
-    def slide_window(list_data, windowsize, overlaprate):
-        '''
-        list_data: list数据
-        windowsize: 窗口尺寸
-        overlaprate: 重叠率
-        '''
-        stride = int(windowsize * (1 - overlaprate)) # 计算stride
-        times = (len(list_data)-windowsize)//stride + 1 # 滑窗次数，同时也是滑窗后数据长度
-        res = []
-        for i in range(times):
-            x = list_data[i*stride : i*stride+windowsize]
-            res.append(x)
-        return res
+    #  保证验证选取的subjects无误
+    assert VALIDATION_SUBJECTS
+    for each in VALIDATION_SUBJECTS:
+        assert each in set([*range(1, 9)])
 
-    if not os.path.exists(dataset_dir):
-        print('HAR-Dataset-Preprocess工程克隆不完整，请重新clone')
-        quit()
+    # 下载数据集
+    download_dataset(
+        dataset_name='Daily_and_Sports_Activities',
+        file_url='http://archive.ics.uci.edu/ml/machine-learning-databases/00256/data.zip',
+        dataset_dir=dataset_dir
+    )
 
     xtrain, xtest, ytrain, ytest = [], [], [], []
     adls = sorted(os.listdir(dataset_dir))
     os.chdir(dataset_dir)
-    for category_id, adl in enumerate(adls): # each adl
+    for category_idx, adl in enumerate(adls): # each adl
         print('======================================================\n         current activity sequence: 【%s】\n'%(adl))
         participants = sorted(os.listdir(adl))
         os.chdir(adl)
-        for participant_id, participant in enumerate(participants):
+        for participant_idx, participant in enumerate(participants): # each subject
+            subject_id = participant_idx + 1
             files = sorted(os.listdir(participant))
             os.chdir(participant)
-            series_data = [] # concat data (125*60, 45)
-            for file in files:
+            series_data = [] # concat series data (125*60, 45)
+            for file in files: # each file
                 with open(file, 'r') as f:
                     for eachline in f:
                         series_data.append(eachline.strip().split(','))
-            series_data = slide_window(series_data, windowsize=WINDOW_SIZE, overlaprate=OVERLAP_RATE) # sliding window [74, 125, 45]
-            if (participant_id+1) < 7: # train data
+            series_data = sliding_window(array=series_data, windowsize=WINDOW_SIZE, overlaprate=OVERLAP_RATE) # sliding window [74, 125, 45]
+
+            if subject_id not in VALIDATION_SUBJECTS: # train data
                 xtrain += series_data
-                ytrain += [category_id] * len(series_data)
+                ytrain += [category_idx] * len(series_data)
             else: # validation data
                 xtest += series_data
-                ytest += [category_id] * len(series_data)
+                ytest += [category_idx] * len(series_data)
             os.chdir('../')
         os.chdir('../')
     os.chdir('../') 
