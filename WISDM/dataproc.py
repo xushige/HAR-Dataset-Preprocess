@@ -78,10 +78,10 @@ def WISDM(dataset_dir='./WISDM_ar_v1.1', WINDOW_SIZE=200, OVERLAP_RATE=0.5, VALI
             # 区分训练集 & 验证集
             if subject_id not in VALIDATION_SUBJECTS: # 训练集
                 xtrain += cur_data
-                ytrain += [label] * len(cur_data)
+                ytrain += [label_id] * len(cur_data)
             else: # 验证集
                 xtest += cur_data
-                ytest += [label] * len(cur_data)
+                ytest += [label_id] * len(cur_data)
 
     xtrain = np.array(xtrain, dtype=np.float32)
     xtest = np.array(xtest, dtype=np.float32)
