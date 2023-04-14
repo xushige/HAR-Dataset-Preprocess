@@ -7,72 +7,45 @@ os.chdir(sys.path[0])
 sys.path.append('../')
 from utils import *
 '''
-WINDOW_SIZE=171 # int
-OVERLAP_RATE=0.5 # float in [0，1）
-SPLIT_RATE= 留一法
+WINDOW_SIZE = 171 # int
+OVERLAP_RATE = 0.5 # float in [0，1）
+SPLIT_RATE = None # 【subject105】as validation data
 
 '''
 
-def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE=0.5, SPLIT_RATE=(7,3), VALIDATION_SUBJECT='105', Z_SCORE=True, SAVE_PATH=os.path.abspath('../../HAR-datasets')):
-    print("\n原数据分析：共12个活动，文件包含9个受试者收集的数据，在数据集的切分上可以选择平均切分，也可以选择某1个受试者的数据作为验证集（留一法）。\n\
-            如果用的是平均切分，所以val-acc会相对偏高，这里默认用留一法，将【subject 105】数据作为验证集\n")
+def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE=0.5, VALIDATION_SUBJECTS={105}, Z_SCORE=True, SAVE_PATH=os.path.abspath('../../HAR-datasets')):
+    '''
+        dataset_dir: 源数据目录
+        WINDOW_SIZE: 滑窗大小
+        OVERLAP_RATE: 滑窗重叠率
+        VALIDATION_SUBJECTS: 验证集所选取的Subjects
+        Z_SCORE: 标准化
+        SAVE_PATH: 预处理后npy数据保存目录
+    '''
+    
+    print("\n原数据分析：共12个活动，文件包含9个受试者收集的数据，切分数据集思路可以采取留一法，选取n个受试者数据作为验证集。\n")
     print('预处理思路：提取有效列，重置活动label，数据降采样1/3，即100Hz -> 33.3Hz，进行滑窗，缺值填充，标准化等方法\n')
 
+    #  保证验证选取的subjects无误
+    assert VALIDATION_SUBJECTS
+    for each in VALIDATION_SUBJECTS:
+        assert each in set([*range(101, 110)])
+
     # 下载数据集
-    if not os.path.exists(dataset_dir):
-        download_dataset(
-            dataset_name='PAMAP2',
-            file_url='http://archive.ics.uci.edu/ml/machine-learning-databases/00231/PAMAP2_Dataset.zip',
-            dir_path=dataset_dir.split('/')[0]
-        )
+    download_dataset(
+        dataset_name='PAMAP2',
+        file_url='http://archive.ics.uci.edu/ml/machine-learning-databases/00231/PAMAP2_Dataset.zip',
+        dataset_dir=dataset_dir
+    )
 
-    assert VALIDATION_SUBJECT in ['101', '102', '103', '104', '105', '106', '107', '108', '109', ''] # 如果是留一法，通过 VALIDATION_SUBJECT 选择一个subject数据作为验证集
-    
-    if VALIDATION_SUBJECT:
-        print('\n留一法取验证集，验证集为：Subject_%s\n' % (VALIDATION_SUBJECT))
-    else:
-        print('\n平均切分法取验证集，(训练: 验证) == (%d: %d)\n' % (SPLIT_RATE[0], SPLIT_RATE[1]))
-
-    xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data
+    xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data, 用于存放最终数据
     category_dict = dict(zip([*range(12)], [1, 2, 3, 4, 5, 6, 7, 12, 13, 16, 17, 24])) #12分类所对应的实际label，对应readme.pdf
-
-    def slide_window(array, windowsize, overlaprate, label, split_rate=(7, 3), validation_subject=None, file_name=None):
-        '''
-        array: 2d-numpy数组
-        windowsize: 窗口尺寸
-        overlaprate: 重叠率
-        label: array对应的标签
-        split_rate: （平均切分）train-test数据量比例
-        validation_subject: （留一法切分）选取的验证受试者，当此参数不为None时，遵循留一法切分
-        file_name: 当前array的归属文件名，用于留一法切分判断是否为验证集
-        '''
-        nonlocal xtrain, xtest, ytrain, ytest
-        stride = int(windowsize * (1 - overlaprate)) # 计算stride
-        times = (array.shape[0]-windowsize)//stride + 1 # 滑窗次数，同时也是滑窗后数据长度
-        tempx = []
-        for i in range(times):
-            x = array[i*stride : i*stride+windowsize]
-            tempx.append(x)
-        np.random.shuffle(tempx) # shuffle
-        # 切分数据集
-        if validation_subject: # 留一法
-            if validation_subject in file_name:
-                xtest += tempx
-                ytest += [label] * len(tempx)
-            else:
-                xtrain += tempx
-                ytrain += [label] * len(tempx)
-        else: # 平均法
-            trainleng = int(times*split_rate[0]/sum(split_rate))
-            xtrain += tempx[: trainleng]
-            xtest += tempx[trainleng: ]
-            ytrain += [label]*trainleng
-            ytest += [label]*(times-trainleng)
 
     dir = dataset_dir
     filelist = os.listdir(dir)
     os.chdir(dir)
     for file in filelist:
+        subject_id = int(file.split('.')[0][-3:])
         content = pd.read_csv(file, sep=' ', usecols=[1]+[*range(4,16)]+[*range(21,33)]+[*range(38,50)]) # 取出有效数据列, 第2列为label，5-16，22-33，39-50都是可使用的传感数据
         content = content.interpolate(method='linear', limit_direction='forward', axis=0).to_numpy() # 线性插值填充nan
         
@@ -84,15 +57,25 @@ def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE
         label = label[label!=0]
 
         print("==================================================================\n         【Loading File: “%s”】\nX-data shape: %s    Y-data shape: %s"%(file, data.shape, label.shape))
-        for i in range(12):
-            true_label = category_dict[i]
-            slide_window(data[label==true_label], WINDOW_SIZE, OVERLAP_RATE, i, SPLIT_RATE, validation_subject=VALIDATION_SUBJECT, file_name=file)
+        for map_label in range(12):
+            true_label = category_dict[map_label]
+            cur_data = sliding_window(array=data[label==true_label], windowsize=WINDOW_SIZE, overlaprate=OVERLAP_RATE)
+
+            # 区分训练集 & 验证集
+            if subject_id not in VALIDATION_SUBJECTS: # 训练集
+                xtrain += cur_data
+                ytrain += [map_label] * len(cur_data)
+            else: # 验证集
+                xtest += cur_data
+                ytest += [map_label] * len(cur_data)
+
     os.chdir('../')
     print('==================================================================')
     xtrain = np.array(xtrain, dtype=np.float32)
     xtest = np.array(xtest, dtype=np.float32)
     ytrain = np.array(ytrain, np.int64)
     ytest = np.array(ytest, np.int64)
+
     if Z_SCORE: # 标准化
         xtrain_2d, xtest_2d = xtrain.reshape(-1, xtrain.shape[-1]), xtest.reshape(-1, xtest.shape[-1])
         std = StandardScaler().fit(xtrain_2d)

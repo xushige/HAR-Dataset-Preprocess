@@ -12,21 +12,24 @@ SPLIT_RATE=(7,3) # tuple or list
 '''
 
 def UNIMIB(dataset_dir='./UniMiB-SHAR/data', SPLIT_RATE=(7,3), SAVE_PATH=os.path.abspath('../../HAR-datasets')):
+    '''
+        dataset_dir: 源数据目录
+        SPLIT_RATE: 训练集与验证集比例
+        SAVE_PATH: 预处理后npy数据保存目录
+    '''
+    
     print("\n原数据分析：原始文件共17个活动，acc_data.mat中已经滑窗切好了数据(11771, 453)，标签也已经准备好在acc_labels中(11771, 3)，不需要额外进行滑窗预处理。\n\
             观察数据分布可以发现unimib数据集的的数据是将xyz轴数据合并在了一起，length==453，表示前151是x轴数据，151-302为y轴数据，302-453为z轴数据\n")
     print("预处理思路：直接读取数据，匹配标签第一维，按比例进行训练集验证集切分\n")
 
     # 下载数据集[由于unimib数据集无法直接访问下载，这里我把unimib数据集上传到gitcdoe进行访问clone]
-    if not os.path.exists(dataset_dir):
-        download_dataset(
-            dataset_name='UniMiB-SHAR',
-            file_url='https://gitcode.net/m0_52161961/UniMiB-SHAR.git', 
-            dir_path=dataset_dir.split('/')[0]
-        )
-    if not os.path.exists(dataset_dir):
-        print('\ngithub 下载数据集失败，请检查网络后重试\n')
-        quit()
-        
+    
+    download_dataset(
+        dataset_name='UniMiB-SHAR',
+        file_url='https://gitcode.net/m0_52161961/UniMiB-SHAR.git', 
+        dataset_dir=dataset_dir
+    )
+    
     '''数据读取'''
     dir = dataset_dir
     data = scio.loadmat(os.path.join(dir, 'acc_data.mat'))['acc_data']
@@ -34,7 +37,6 @@ def UNIMIB(dataset_dir='./UniMiB-SHAR/data', SPLIT_RATE=(7,3), SAVE_PATH=os.path
     print('total x shape: %s   total y shape: %s'%(data.shape, label.shape))
     print("label 一共包含三维，分别表示: [category, subject, trial]， 我们只需要第一维category信息")
     print(label, '\n')
-
 
     '''数据集切分'''
     train_data, train_label, test_data, test_label = [], [], [], []

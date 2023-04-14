@@ -8,48 +8,32 @@ os.chdir(sys.path[0])
 sys.path.append('../')
 from utils import *
 '''
-WINDOW_SIZE=30 # int
-OVERLAP_RATE=0.5 # float in [0，1）
-SPLIT_RATE=-- # tuple or list  
+WINDOW_SIZE = 30 # int
+OVERLAP_RATE = 0.5 # float in [0，1）
+SPLIT_RATE = None # 【'S2-ADL4.dat', 'S2-ADL5.dat', 'S3-ADL4.dat', 'S3-ADL5.dat'】 as validation data
 '''
 
-def OPPO(dataset_dir='./OpportunityUCIDataset/dataset', WINDOW_SIZE=30, OVERLAP_RATE=0.5, SAVE_PATH=os.path.abspath('../../HAR-datasets')):
+def OPPO(dataset_dir='./OpportunityUCIDataset/dataset', WINDOW_SIZE=30, OVERLAP_RATE=0.5, VALIDATION_FILES={'S2-ADL4.dat', 'S2-ADL5.dat', 'S3-ADL4.dat', 'S3-ADL5.dat'}, Z_SCORE=False, SAVE_PATH=os.path.abspath('../../HAR-datasets')):
+    '''
+        dataset_dir: 源数据目录
+        WINDOW_SIZE: 滑窗大小
+        OVERLAP_RATE: 滑窗重叠率
+        VALIDATION_SUBJECTS: 验证集所选取的Subjects
+        Z_SCORE: 标准化
+        SAVE_PATH: 预处理后npy数据保存目录
+    '''
+    
     print("\n原数据分析：原始文件共17个活动（不含null），column_names.txt文件中需要提取有效轴，论文中提到['S2-ADL4.dat', 'S2-ADL5.dat', 'S3-ADL4.dat', 'S3-ADL5.dat']用作验证集\n")
     print("预处理思路：提取有效列，重置活动label，遍历文件进行滑窗，缺值填充，标准化等方法\n")
 
     # 下载数据集
-    if not os.path.exists(dataset_dir):
-        download_dataset(
-            dataset_name='OPPORTUNITY',
-            file_url='http://archive.ics.uci.edu/ml/machine-learning-databases/00226/OpportunityUCIDataset.zip',
-            dir_path=dataset_dir.split('/')[0]
-        )
+    download_dataset(
+        dataset_name='OPPORTUNITY',
+        file_url='http://archive.ics.uci.edu/ml/machine-learning-databases/00226/OpportunityUCIDataset.zip',
+        dataset_dir=dataset_dir
+    )
 
-    xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data,最终数据
-    '''滑窗'''
-    def slide_window(array, windowsize, overlaprate, label, pattern='train'):
-        '''
-        array: 2d-numpy数组
-        windowsize: 窗口尺寸
-        overlaprate: 重叠率
-        label: array对应的标签
-        split_rate: train-test数据量比例
-        '''
-        nonlocal xtrain, xtest, ytrain, ytest
-        stride = int(windowsize * (1 - overlaprate)) # 计算stride
-        times = (array.shape[0]-windowsize)//stride + 1 # 滑窗次数，同时也是滑窗后数据长度
-        tempx = []
-        for i in range(times):
-            x = array[i*stride : i*stride+windowsize]
-            tempx.append(x)
-        np.random.shuffle(tempx) # shuffle
-        # 切分数据集
-        if pattern=='train':
-            xtrain += tempx
-            ytrain += [label] * times
-        else:
-            xtest += tempx
-            ytest += [label] * times
+    xtrain, xtest, ytrain, ytest = [], [], [], [] # train-test-data,用于存放最终数据
             
     '''标签转换 (17 分类不含 null 类)'''
     label_seq = {
@@ -74,7 +58,6 @@ def OPPO(dataset_dir='./OpportunityUCIDataset/dataset', WINDOW_SIZE=30, OVERLAP_
 
     '''数据读取，清洗'''
     Trainx, Testx, Trainy, Testy = [], [], [], [] # 存放清洗后的数据，并非最终数据
-    Test_file = ['S2-ADL4.dat', 'S2-ADL5.dat', 'S3-ADL4.dat', 'S3-ADL5.dat'] # 验证集文件
     filelist = os.listdir(dataset_dir)
     os.chdir(dataset_dir)
     select_col = [*range(1, 46)] + [*range(50, 59)] + [*range(63, 72)] + [*range(76, 85)] + [*range(89, 98)] + [*range(102, 134)] + [249] # 挑选的列：x-features 和 y-label(250列)
@@ -91,26 +74,33 @@ def OPPO(dataset_dir='./OpportunityUCIDataset/dataset', WINDOW_SIZE=30, OVERLAP_
             x[:, col] = Series(x[:, col]).interpolate() # 每列线性插值填充
         x[np.isnan(x)] = 0 # 保证数据无NAN
 
-        # 存放于不同位置
-        if file in Test_file:
+        # 区分训练集 & 验证集
+        if file in VALIDATION_FILES: #验证集
             print('----  Test data')
             Testx += x.tolist()
             Testy += y.tolist()
-        else:
+        else: # 训练集
             print()
             Trainx += x.tolist()
             Trainy += y.tolist()
     
     '''标准化'''
-    std = StandardScaler().fit(Trainx)
-    Trainx = std.transform(Trainx)
-    Testx = std.transform(Testx)
+    if Z_SCORE:
+        std = StandardScaler().fit(Trainx)
+        Trainx = std.transform(Trainx)
+        Testx = std.transform(Testx)
     
     '''按label滑窗'''
     for key in label_seq.keys():
         label = label_seq[key][1] # y 中目前还是key，因此需要根据key来确定送入滑窗的 x
-        slide_window(Trainx[np.array(Trainy)==key], WINDOW_SIZE, OVERLAP_RATE, label, 'train')
-        slide_window(Testx[np.array(Testy)==key], WINDOW_SIZE, OVERLAP_RATE, label, 'test')
+        # 训练集滑窗
+        train = sliding_window(array=Trainx[np.array(Trainy)==key], windowsize=WINDOW_SIZE, overlaprate=OVERLAP_RATE)
+        xtrain += train
+        ytrain += [label] * len(train)
+        # 验证集滑窗
+        test = sliding_window(array=Testx[np.array(Testy)==key], windowsize=WINDOW_SIZE, overlaprate=OVERLAP_RATE)
+        xtest += test
+        ytest += [label] * len(test)
 
     xtrain, xtest, ytrain, ytest = np.array(xtrain), np.array(xtest), np.array(ytrain), np.array(ytest)
     print('\n---------------------------------------------------------------------------------------------------------------------\n')
