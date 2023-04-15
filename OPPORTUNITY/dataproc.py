@@ -76,7 +76,7 @@ def OPPO(dataset_dir='./OpportunityUCIDataset/dataset', WINDOW_SIZE=30, OVERLAP_
 
         # 区分训练集 & 验证集
         if file in VALIDATION_FILES: #验证集
-            print('----  Test data')
+            print('----  Validation Data')
             Testx += x.tolist()
             Testy += y.tolist()
         else: # 训练集

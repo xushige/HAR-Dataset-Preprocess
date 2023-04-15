@@ -1,6 +1,7 @@
 import os
 import numpy as np
 from sklearn.preprocessing import StandardScaler
+import pandas as pd
 import sys
 os.chdir(sys.path[0])
 sys.path.append('../')
@@ -48,12 +49,8 @@ def DASA(dataset_dir='./data', WINDOW_SIZE=125, OVERLAP_RATE=0.4, VALIDATION_SUB
             subject_id = participant_idx + 1
             files = sorted(os.listdir(participant))
             os.chdir(participant)
-            series_data = [] # concat series data (125*60, 45)
-            for file in files: # each file
-                with open(file, 'r') as f:
-                    for eachline in f:
-                        series_data.append(eachline.strip().split(','))
-            series_data = sliding_window(array=series_data, windowsize=WINDOW_SIZE, overlaprate=OVERLAP_RATE) # sliding window [74, 125, 45]
+            concat_data = np.vstack([pd.read_csv(file, sep=',', header=None).to_numpy() for file in files]) # concat series data (125*60, 45)
+            series_data = sliding_window(array=concat_data, windowsize=WINDOW_SIZE, overlaprate=OVERLAP_RATE) # sliding window [n, 125, 45]
 
             if subject_id not in VALIDATION_SUBJECTS: # train data
                 xtrain += series_data
