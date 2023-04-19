@@ -3,7 +3,7 @@ import torch
 
 '''ResNext: 分组卷积'''
 class ResNextBlock(nn.Module):
-    def __init__(self, inchannel, outchannel, stride, groups=4):
+    def __init__(self, inchannel, outchannel, kernel_size, stride, groups):
         super().__init__()
         if inchannel != 1:
             assert inchannel % groups == 0 # inchannel必须整除groups
@@ -13,7 +13,7 @@ class ResNextBlock(nn.Module):
         layer_lists = []
         for i in range(groups):
             layer_lists.append(nn.Sequential(
-                nn.Conv2d(inchannel, group_channel, (9, 1), (stride, 1), (4, 0)),
+                nn.Conv2d(inchannel, group_channel, (kernel_size, 1), (stride, 1), (kernel_size//2, 0)),
                 nn.BatchNorm2d(group_channel),
                 nn.ReLU(),
                 nn.Conv2d(group_channel, outchannel, 1, 1, 0),
@@ -32,9 +32,9 @@ class ResNextBlock(nn.Module):
         return out
 
 class Block(nn.Module):
-    def __init__(self, inchannel, outchannel, stride=1, groups=4):
+    def __init__(self, inchannel, outchannel, kernel_size, stride, groups):
         super().__init__()
-        self.block = ResNextBlock(inchannel=inchannel, outchannel=outchannel, stride=stride, groups=groups)
+        self.block = ResNextBlock(inchannel=inchannel, outchannel=outchannel, kernel_size=kernel_size, stride=stride, groups=groups)
         self.short = nn.Sequential()
         if (inchannel != outchannel or stride != 1):
             self.short = nn.Sequential(
@@ -58,10 +58,10 @@ class ResNext(nn.Module):
             groups: 每个ResNextBlock里有多少并行组
         '''
         self.groups = groups
-        self.layer1 = self.make_layers(1, 64, 2, 1)
-        self.layer2 = self.make_layers(64, 128, 2, 1)
-        self.layer3 = self.make_layers(128, 256, 2, 1)
-        self.layer4 = self.make_layers(256, 512, 2, 1)
+        self.layer1 = self.make_layers(1, 64, 3, 2, 1)
+        self.layer2 = self.make_layers(64, 128, 3, 2, 1)
+        self.layer3 = self.make_layers(128, 256, 3, 2, 1)
+        self.layer4 = self.make_layers(256, 512, 3, 2, 1)
         self.ada_pool = nn.AdaptiveAvgPool2d((1, train_shape[-1]))
         self.fc = nn.Linear(512*train_shape[-1], category)
 
@@ -78,8 +78,8 @@ class ResNext(nn.Module):
         x = self.fc(x)
         return x
     
-    def make_layers(self, inchannel, outchannel, stride, blocks):
-        layer = [Block(inchannel, outchannel, stride, self.groups)]
+    def make_layers(self, inchannel, outchannel, kernel_size, stride, blocks):
+        layer = [Block(inchannel, outchannel, kernel_size, stride, self.groups)]
         for i in range(1, blocks):
-            layer.append(Block(outchannel, outchannel, 1, self.groups))
+            layer.append(Block(outchannel, outchannel, kernel_size, 1, self.groups))
         return nn.Sequential(*layer)

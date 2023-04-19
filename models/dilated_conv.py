@@ -2,7 +2,7 @@ import torch.nn as nn
 
 '''Dilated Convolutional Neural Network: 空洞卷积'''
 class DilatedConv(nn.Module):
-    def __init__(self, train_shape, category, kernel_size=9, dilations=[1, 2, 3, 5]):
+    def __init__(self, train_shape, category, kernel_size=3, dilations=[1, 2, 3]):
         super(DilatedConv, self).__init__()
         '''
             train_shape: 总体训练样本的shape
@@ -23,7 +23,7 @@ class DilatedConv(nn.Module):
             nn.BatchNorm2d(256),
             nn.ReLU(),
 
-            nn.Conv2d(256, 512, (kernel_size, 1), (2, 1), ((dilations[3] * (kernel_size - 1) + 1) // 2, 0), dilation=dilations[3]),
+            nn.Conv2d(256, 512, (kernel_size, 1), (2, 1), (kernel_size // 2, 0)), # 感受野足够便不需要继续空洞Conv
             nn.BatchNorm2d(512),
             nn.ReLU()
         )

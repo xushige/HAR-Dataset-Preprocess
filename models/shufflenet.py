@@ -28,7 +28,7 @@ class ChannelShuffleModule(nn.Module):
 
 
 class ShuffleNet(nn.Module):
-    def __init__(self, train_shape, category, kernel_size=9):
+    def __init__(self, train_shape, category, kernel_size=3):
         super(ShuffleNet, self).__init__()
         '''
             train_shape: 总体训练样本的shape

@@ -3,7 +3,7 @@ import torch.nn as nn
 '''Depthwise Convolutional Neural Network: 深度可分离卷积'''
 '''即 MobileNet V1，引入通道注意力Channel Attention机制后即为 MobileNet V3'''
 class DepthwiseConv(nn.Module):
-    def __init__(self, train_shape, category, kernel_size=9):
+    def __init__(self, train_shape, category, kernel_size=3):
         super(DepthwiseConv, self).__init__()
         '''
             train_shape: 总体训练样本的shape

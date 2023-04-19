@@ -31,22 +31,22 @@ class ChannelAttentionNeuralNetwork(nn.Module):
             category: 类别数
         '''
         self.layer = nn.Sequential(
-            nn.Conv2d(1, 64, (9, 1), (2, 1), (4, 0)),
+            nn.Conv2d(1, 64, (3, 1), (2, 1), (1, 0)),
             ChannelAttentionModule(64),
             nn.BatchNorm2d(64),
             nn.ReLU(),
 
-            nn.Conv2d(64, 128, (9, 1), (2, 1), (4, 0)),
+            nn.Conv2d(64, 128, (3, 1), (2, 1), (1, 0)),
             ChannelAttentionModule(128),
             nn.BatchNorm2d(128),
             nn.ReLU(),
 
-            nn.Conv2d(128, 256, (9, 1), (2, 1), (4, 0)),
+            nn.Conv2d(128, 256, (3, 1), (2, 1), (1, 0)),
             ChannelAttentionModule(256),
             nn.BatchNorm2d(256),
             nn.ReLU(),
 
-            nn.Conv2d(256, 512, (9, 1), (2, 1), (4, 0)),
+            nn.Conv2d(256, 512, (3, 1), (2, 1), (1, 0)),
             ChannelAttentionModule(512),
             nn.BatchNorm2d(512),
             nn.ReLU()

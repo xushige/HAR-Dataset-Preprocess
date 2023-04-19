@@ -48,7 +48,7 @@ class Block(nn.Module):
     def __init__(self, inchannel, outchannel, stride=1):
         super().__init__()
         self.block = nn.Sequential(
-            nn.Conv2d(inchannel, outchannel, (9, 1), (stride, 1), (4, 0)),
+            nn.Conv2d(inchannel, outchannel, (3, 1), (stride, 1), (1, 0)),
             nn.BatchNorm2d(outchannel),
             nn.ReLU(),
             Res2NetBlock(channel=outchannel),
