@@ -19,7 +19,7 @@ def UCI(dataset_dir='./UCI HAR Dataset', SAVE_PATH=os.path.abspath('../../HAR-da
     # 下载数据集
     download_dataset(
         dataset_name='UCI-HAR',
-        file_url='https://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip',
+        file_url='https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip',
         dataset_dir=dataset_dir
     )
         

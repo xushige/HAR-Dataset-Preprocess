@@ -33,7 +33,7 @@ def DASA(dataset_dir='./data', WINDOW_SIZE=125, OVERLAP_RATE=0.4, SPLIT_RATE=(8,
     # 下载数据集
     download_dataset(
         dataset_name='Daily_and_Sports_Activities',
-        file_url='http://archive.ics.uci.edu/ml/machine-learning-databases/00256/data.zip',
+        file_url='http://archive.ics.uci.edu/static/public/256/daily+and+sports+activities.zip',
         dataset_dir=dataset_dir
     )
 

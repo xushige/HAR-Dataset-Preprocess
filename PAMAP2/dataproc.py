@@ -32,7 +32,7 @@ def PAMAP(dataset_dir='./PAMAP2_Dataset/Protocol', WINDOW_SIZE=171, OVERLAP_RATE
     # 下载数据集
     download_dataset(
         dataset_name='PAMAP2',
-        file_url='http://archive.ics.uci.edu/ml/machine-learning-databases/00231/PAMAP2_Dataset.zip',
+        file_url='http://archive.ics.uci.edu/static/public/231/pamap2+physical+activity+monitoring.zip',
         dataset_dir=dataset_dir
     )
 

@@ -32,7 +32,7 @@ def OPPO(dataset_dir='./OpportunityUCIDataset/dataset', WINDOW_SIZE=30, OVERLAP_
     # 下载数据集
     download_dataset(
         dataset_name='OPPORTUNITY',
-        file_url='http://archive.ics.uci.edu/ml/machine-learning-databases/00226/OpportunityUCIDataset.zip',
+        file_url='http://archive.ics.uci.edu/static/public/226/opportunity+activity+recognition.zip',
         dataset_dir=dataset_dir
     )
      

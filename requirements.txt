@@ -6,4 +6,3 @@ scipy
 argparse
 req
 clint
-requests

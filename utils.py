@@ -1,10 +1,10 @@
-import requests
 import shutil
-from clint.textui import progress
 import os
+import glob
 import numpy as np
 from collections import Counter
 from sklearn.preprocessing import StandardScaler
+
 
 def download_dataset(dataset_name, file_url, dataset_dir):
     '''
@@ -24,20 +24,20 @@ def download_dataset(dataset_name, file_url, dataset_dir):
         os.system('git clone %s %s/%s' % (file_url, dir_path, dataset_name))
    
     else: # 其他数据集
-        r = requests.get(url=file_url, stream=True)
-        with open(os.path.join(dir_path, 'dataset.zip'),mode='wb') as f:  # 需要用wb模式
-            total_leng = int(r.headers.get('content-length'))
-            for chunk in progress.bar(r.iter_content(chunk_size=1024), expected_size=(total_leng / 1024) + 1):
-                if chunk:
-                    f.write(chunk)
-                    f.flush()
-        for format in ["zip", "tar", "gztar", "bztar", "xztar"]:
-            try:
-                shutil.unpack_archive(filename=os.path.join(dir_path, 'dataset.zip'),extract_dir=dir_path, format=format)
-                break
-            except:
-                continue
-        os.remove(os.path.join(dir_path, r'dataset.zip'))
+        # download
+        dataset_file_path = os.path.join(dir_path, 'dataset.zip')
+        os.system(f"wget -O {dataset_file_path} {file_url}")
+
+        # unpack
+        while glob.glob(os.path.join(dir_path, '*.zip')):
+            for file in glob.glob(os.path.join(dir_path, '*.zip')):
+                for format in ["zip", "tar", "gztar", "bztar", "xztar"]:
+                    try:
+                        shutil.unpack_archive(filename=file, extract_dir=dir_path, format=format)
+                        break
+                    except:
+                        continue
+                os.remove(file)
 
     print()
 

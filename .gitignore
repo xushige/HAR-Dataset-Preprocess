@@ -12,3 +12,5 @@ OPPORTUNITY/OpportunityUCIDataset
 UniMiB_SHAR/UniMiB-SHAR
 *.zip
 .DS_Store
+*.names
+*.pdf
